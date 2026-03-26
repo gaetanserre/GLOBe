@@ -4,9 +4,9 @@
 
 #set text(font: "New Computer Modern", size: 12pt)
 
-#let opt = [MSGD]
-#let smd_opt = [SMD-MSGD]
-#let gcn_opt = [GCN-MSGD]
+#let opt = [Langevin]
+#let smd_opt = [SMD-#opt]
+#let gcn_opt = [GCN-#opt]
 
 #let legend(it) = align(center, it) + v(-0.5em)
 
@@ -38,7 +38,7 @@
   size: 15pt,
   align(
     left,
-    [*Figure.* Visualization of the coverage of the search space for the #opt, #smd_opt and #gcn_opt algorithms on the Ackley function. The first row shows the repartition of particles at the last iteration (over $1000$ iterations) for each algorithm. The second row shows the evolution of the minimum value of the function over iterations for each algorithm. The last row shows the percentage of the search space that has been visited by the particles over iterations for each algorithm. The coverage is computed by discretizing the search space into a $epsilon$-covering of the space, and counting the number of cells that have been visited by at least one particle at each iteration. We set $epsilon = 0.1$ in our experiments.
+    [*Figure.* Visualization of the coverage of the search space for the #opt, #smd_opt and #gcn_opt algorithms on the Ackley function using $15$ particles. The first row shows the repartition of particles at the last iteration (over $1000$ iterations) for each algorithm. The second row shows the evolution of the minimum value of the function over iterations for each algorithm. The third row shows the space that has been visited by each algorithm after $1000$ iterations. The last row shows the percentage of the search space that has been visited by the particles over iterations for each algorithm. For the two last rows, the coverage of the search space is computed by discretizing the latter into a $epsilon$-covering. We then count the number of balls of radius $epsilon$ that have been visited by at least one particle during the optimization process. We set $epsilon = 0.1$ in our experiments.
 
       One can see that, not only the SMD and GCN variants of #opt explore more of the search space, but they also end up with a better concentration of particles around the global minimum, which is located at the center of the plots. This suggests that the SMD and GCN variants are able to escape local minima and explore more effectively the search space, leading to better optimization performance.],
   ),
