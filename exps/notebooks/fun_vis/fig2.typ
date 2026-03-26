@@ -14,3 +14,10 @@
 
   image("Trid.svg") + align(center, [Trid]), image("Zakharov.svg") + align(center, [Zakharov]), [],
 )
+
+#v(1em)
+
+#align(center, text(
+  size: 15pt,
+  [*Figure 1.* Visualization of the 2D landscapes of the unimodal functions used in our experiments.],
+))

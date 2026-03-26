@@ -1,6 +1,10 @@
-#set page(width: auto, height: auto)
+#set page(width: 40cm, height: 39cm)
+
+#set par(justify: true)
 
 #set text(font: "New Computer Modern", size: 12pt)
+
+#v(-5em)
 
 #grid(
   columns: 3,
@@ -16,3 +20,13 @@
   align(horizon, image("exploration_mean.svg")) + align(center, [Mean distance between particles over iterations]),
   align(horizon, image("exploration_var.svg")) + align(center, [Particle variance over iterations]),
 )
+
+#v(1em)
+
+#align(center, text(
+  size: 15pt,
+  align(
+    left,
+    [*Figure 1.* Visualization of the repartition of particles in the search space for the CBO, SMD-CBO and GCN-CBO algorithms on the Holder Table function. The first row shows the repartition of particles at the last iteration (over $1000$ iterations) for each algorithm. The second row shows the evolution of the minimum value of the function over iterations for each algorithm. The third row shows the Holder Table function and the evolution of the mean distance between particles and the particle variance over iterations for each algorithm.],
+  ),
+))
