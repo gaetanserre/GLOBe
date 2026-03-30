@@ -19,5 +19,5 @@
 
 #align(center, text(
   size: 15pt,
-  [*Figure 1.* Visualization of the 2D landscapes of the unimodal functions used in our experiments.],
+  [*Figure.* Visualization of the 2D landscapes of the unimodal functions used in our experiments.],
 ))
