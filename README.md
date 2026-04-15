@@ -36,12 +36,12 @@ The documentation is available at [gaetanserre.fr/GLOBe](https://gaetanserre.fr/
 ### Installation (Python ≥ 3.10)
 Install the package via pip from PyPI:
 ```bash
-pip install globe
+pip install globe-opti
 ```
 
 Alternatively, download the corresponding wheel file from the [releases](https://github.com/gaetanserre/GLOBe/releases) and install it with pip:
 ```bash
-pip install globe-<version>-<architecture>.whl
+pip install globe-opti-<version>-<architecture>.whl
 ```
 
 ### Build from source
