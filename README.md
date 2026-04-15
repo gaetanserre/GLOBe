@@ -13,6 +13,7 @@
 GLOBe is a collection of global optimization algorithms implemented in C++ and linked with Python. It also includes a set of analytical benchmark functions and a random function generator ([PyGKLS](https://github.com/gaetanserre/pyGKLS)) to test the performance of these algorithms.
 
 ### Algorithms
+
 - [AdaLIPO+](https://dl.acm.org/doi/full/10.1145/3688671.3688763)
 - [AdaRankOpt](https://arxiv.org/abs/1603.04381)
 - [Bayesian Optimization](https://github.com/bayesian-optimization/BayesianOptimization)
@@ -31,9 +32,11 @@ GLOBe is a collection of global optimization algorithms implemented in C++ and l
 - Pure Random Search
 
 ### Documentation
+
 The documentation is available at [gaetanserre.fr/GLOBe](https://gaetanserre.fr/GLOBe/).
 
 ### Installation (Python ≥ 3.10)
+
 Install the package via pip from PyPI:
 ```bash
 pip install globe-opti
@@ -45,6 +48,7 @@ pip install globe-opti-<version>-<architecture>.whl
 ```
 
 ### Build from source
+
 Make sure you have CMake (≥ 3.28), a c++ compiler, and the eigen3 library installed. Then clone the repository and run:
 ```bash
 pip install . -v
@@ -57,6 +61,7 @@ make html
 ```
 
 ### Usage
+
 This package can be used to design a complete benchmarking framework for global optimization algorithms, testing multiple algorithms on a set of benchmark functions. See [`test_globe.py`](tests/test_globe_tools.py) for an example of how to use it.
 
 The global optimization algorithms can also be used independently. For example, to run the AdaLIPO+ algorithm on a benchmark function:
@@ -74,12 +79,15 @@ print(f"Optimal point: {res[0]}, Optimal value: {res[1]}")
 See [`test_optimizers.py`](tests/test_optimizers.py) for more examples of how to use the algorithms.
 
 ### Contributing
+
 Contributions are welcome! Please see the [CONTRIBUTING](CONTRIBUTING.md) file for guidelines.
 
 ### References
+
 - [BayesianOptimization](https://github.com/bayesian-optimization/BayesianOptimization)
 - [libcames](https://github.com/CMA-ES/libcmaes)
 - [nlopt-python](https://github.com/DanielBok/nlopt-python)
 
 ### License
-This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0). See the [LICENSE](LICENSE) file for details.
+
+This is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
