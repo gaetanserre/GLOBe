@@ -5,7 +5,7 @@ authors = [
 maintainers = [
   { name = "Gaëtan Serré", email = "gaetan.serre@ens-paris-saclay.fr" },
 ]
-name = "globe"
+name = "globe-opti"
 version = "0.0.7"
 dependencies = [
   "numpy>=2.1.3",

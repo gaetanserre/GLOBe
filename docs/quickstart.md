@@ -4,12 +4,12 @@
 
 The easiest way to install GLOBe is via pip from PyPI:
 ```bash
-pip install globe
+pip install globe-opti
 ```
 Alternatively, you can download the latest wheel from the [releases page](https://github.com/gaetanserre/GLOBe/releases) on GitHub and install it using pip:
 
 ```bash
-pip install globe-<version>-<architecture>.whl
+pip install globe-opti-<version>-<architecture>.whl
 ```
 
 ## Build from source
