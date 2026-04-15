@@ -5,9 +5,9 @@
 #include "optimizers/decision/AdaRankOpt.hh"
 #include "optimizers/decision/PolynomialFeatures.hh"
 #include "optimizers/decision/Simplex.hh"
-#include "optimizers/decision/trust_regions.hh"
+#include "optimizers/decision/decision.hh"
 
-Eigen::MatrixXd AdaRankOpt::polynomial_matrix(vector<pair<dyn_vector, double>> &samples, int degree)
+Eigen::MatrixXd AdaRankOpt::polynomial_matrix(vector<result_eigen> &samples, int degree)
 {
   int n = samples.size() - 1;
   int d = samples[0].first.size();
@@ -24,10 +24,10 @@ Eigen::MatrixXd AdaRankOpt::polynomial_matrix(vector<pair<dyn_vector, double>> &
   return M;
 }
 
-namespace AdaRankOpt_trust
+namespace AdaRankOpt_decision
 {
   bool decision(
-      vector<pair<dyn_vector, double>> samples,
+      vector<result_eigen> samples,
       dyn_vector x, vector<void *> data,
       vector<void (*)(void)> functions)
   {
@@ -35,8 +35,8 @@ namespace AdaRankOpt_trust
       return true;
     int *degree = (int *)data[0];
     glp_smcp *param = (glp_smcp *)data[1];
-    Eigen::MatrixXd (*polynomial_matrix)(vector<pair<dyn_vector, double>>, int) =
-        (Eigen::MatrixXd (*)(vector<pair<dyn_vector, double>>, int))functions[0];
+    Eigen::MatrixXd (*polynomial_matrix)(vector<result_eigen>, int) =
+        (Eigen::MatrixXd (*)(vector<result_eigen>, int))functions[0];
     double f_x_tmp = samples.back().second + 1;
     samples.push_back({x, f_x_tmp});
     Eigen::MatrixXd M = polynomial_matrix(samples, *degree);
@@ -45,7 +45,7 @@ namespace AdaRankOpt_trust
   }
 
   void callback(
-      vector<pair<dyn_vector, double>> samples,
+      vector<result_eigen> samples,
       vector<void *> data,
       vector<void (*)(void)> functions)
   {
@@ -54,8 +54,8 @@ namespace AdaRankOpt_trust
       int *degree = (int *)data[0];
       glp_smcp *param = (glp_smcp *)data[1];
       int *max_degree = (int *)data[2];
-      Eigen::MatrixXd (*polynomial_matrix)(vector<pair<dyn_vector, double>>, int) =
-          (Eigen::MatrixXd (*)(vector<pair<dyn_vector, double>>, int))functions[0];
+      Eigen::MatrixXd (*polynomial_matrix)(vector<result_eigen>, int) =
+          (Eigen::MatrixXd (*)(vector<result_eigen>, int))functions[0];
       while (*degree < *max_degree)
       {
         Eigen::MatrixXd M = polynomial_matrix(samples, *degree);
@@ -78,19 +78,19 @@ result_eigen AdaRankOpt::minimize(function<double(dyn_vector)> f)
   vector<void (*)(void)> functions(1);
   functions[0] = (void (*)(void))&AdaRankOpt::polynomial_matrix;
 
-  TrustRegions tr = TrustRegions(
+  Decision dec = Decision(
       this->bounds,
       this->n_eval,
       this->max_trials,
-      this->trust_region_radius,
-      this->bobyqa_eval,
       data,
       functions,
-      &AdaRankOpt_trust::decision,
-      &AdaRankOpt_trust::callback);
+      &AdaRankOpt_decision::decision,
+      this->trust_region_radius,
+      this->bobyqa_eval,
+      &AdaRankOpt_decision::callback);
 
   if (this->has_stop_criterion)
-    tr.set_stop_criterion(this->stop_criterion);
+    dec.set_stop_criterion(this->stop_criterion);
 
-  return tr.minimize(f);
+  return dec.minimize(f);
 }

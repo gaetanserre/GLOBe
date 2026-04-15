@@ -2,11 +2,11 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from ..cpp_optimizer import CPP_Optimizer
+from .decision_optimizer import Decision_Optimizer
 from ..cpp_optimizers import ECP as C_ECP
 
 
-class ECP(CPP_Optimizer):
+class ECP(Decision_Optimizer):
     """
     Interface for the ECP+TR optimizer.
 
@@ -24,10 +24,15 @@ class ECP(CPP_Optimizer):
         How many candidates to sample before increasing epsilon.
     max_trials : int
         The maximum number of potential candidates sampled at each iteration.
-    trust_region_radius : float
-        The trust region radius.
-    bobyqa_eval : int
-        The number of evaluations for the BOBYQA optimizer.
+    trust_region_dict : dict, optional
+        Dictionary with the following keys:
+
+        radius : float
+            The trust region radius.
+        bobyqa_eval : int
+            The number of evaluations for the BOBYQA optimizer.
+
+        If None, the trust region is not used.
     verbose : bool
         Whether to print information about the optimization
     """
@@ -40,25 +45,18 @@ class ECP(CPP_Optimizer):
         theta_init=1.001,
         C=1000,
         max_trials=10_000_000,
-        trust_region_radius=0.1,
-        bobyqa_eval=20,
+        trust_region_dict={"radius": 0.1, "bobyqa_eval": 20},
         verbose=False,
     ):
-        super().__init__("ECP+TR", bounds, verbose)
-
-        if n_eval < bobyqa_eval:
-            bobyqa_eval = n_eval
-            n_eval = 1
-        else:
-            n_eval = n_eval // bobyqa_eval
+        super().__init__("ECP", bounds, n_eval, trust_region_dict, verbose)
 
         self.c_opt = C_ECP(
             bounds,
-            n_eval,
+            self.n_eval,
             epsilon,
             theta_init,
             C,
             max_trials,
-            trust_region_radius,
-            bobyqa_eval,
+            self.trust_region_radius,
+            self.bobyqa_eval,
         )

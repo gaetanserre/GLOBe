@@ -43,5 +43,5 @@ private:
   double trust_region_radius;
   int bobyqa_eval;
   glp_smcp *param;
-  static Eigen::MatrixXd polynomial_matrix(vector<pair<dyn_vector, double>> &samples, int degree);
+  static Eigen::MatrixXd polynomial_matrix(vector<result_eigen> &samples, int degree);
 };

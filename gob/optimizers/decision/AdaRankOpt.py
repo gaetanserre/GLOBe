@@ -2,11 +2,11 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from ..cpp_optimizer import CPP_Optimizer
+from .decision_optimizer import Decision_Optimizer
 from ..cpp_optimizers import AdaRankOpt as C_AdaRankOpt
 
 
-class AdaRankOpt(CPP_Optimizer):
+class AdaRankOpt(Decision_Optimizer):
     """
     Interface for the AdaRankOpt optimizer.
 
@@ -20,12 +20,17 @@ class AdaRankOpt(CPP_Optimizer):
         The maximum number of potential candidates sampled at each iteration.
     max_degree : int
         The maximum degree of the polynomial kernel.
-    trust_region_radius : float
-        The trust region radius.
-    bobyqa_eval : int
-        The number of evaluations for the BOBYQA optimizer.
     it_lim : int
-        The iteration limit for the BOBYQA optimizer.
+        The iteration limit for the simplex optimizer.
+    trust_region_dict : dict, optional
+        Dictionary with the following keys:
+
+        radius : float
+            The trust region radius.
+        bobyqa_eval : int
+            The number of evaluations for the BOBYQA optimizer.
+
+        If None, the trust region is not used.
     verbose : bool
         Whether to print information about the optimization process.
     """
@@ -36,25 +41,18 @@ class AdaRankOpt(CPP_Optimizer):
         n_eval=1000,
         max_trials=50_000,
         max_degree=15,
-        trust_region_radius=0.1,
-        bobyqa_eval=20,
         it_lim=100,
+        trust_region_dict={"radius": 0.1, "bobyqa_eval": 20},
         verbose=False,
     ):
-        super().__init__("AdaRankOpt", bounds, verbose)
-
-        if n_eval < bobyqa_eval:
-            bobyqa_eval = n_eval
-            n_eval = 1
-        else:
-            n_eval = n_eval // bobyqa_eval
+        super().__init__("AdaRankOpt", bounds, n_eval, trust_region_dict, verbose)
 
         self.c_opt = C_AdaRankOpt(
             bounds,
-            n_eval,
+            self.n_eval,
             max_trials,
             max_degree,
-            trust_region_radius,
-            bobyqa_eval,
+            self.trust_region_radius,
+            self.bobyqa_eval,
             it_lim,
         )

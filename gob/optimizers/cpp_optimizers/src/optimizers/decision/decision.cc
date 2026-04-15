@@ -2,7 +2,7 @@
  * Created in 2025 by Gaëtan Serré
  */
 
-#include "optimizers/decision/trust_regions.hh"
+#include "optimizers/decision/decision.hh"
 #include "optimizers/decision/bobyqa.hh"
 
 bool check_in_ball(const CoverTree<Point> &cTree, const dyn_vector &x, const double &radius)
@@ -19,12 +19,12 @@ bool check_in_ball(const CoverTree<Point> &cTree, const dyn_vector &x, const dou
   }
 }
 
-result_eigen TrustRegions::minimize(function<double(dyn_vector)> f)
+result_eigen Decision::minimize(function<double(dyn_vector)> f)
 {
   CoverTree<Point> cTree;
-  vector<pair<dyn_vector, double>> samples;
+  vector<result_eigen> samples;
 
-  auto compare_pair = [](pair<dyn_vector, double> a, pair<dyn_vector, double> b) -> bool
+  auto compare_pair = [](result_eigen a, result_eigen b) -> bool
   {
     return a.second < b.second;
   };
@@ -36,18 +36,32 @@ result_eigen TrustRegions::minimize(function<double(dyn_vector)> f)
     {
       dyn_vector x = unif_random_vector(this->re, this->bounds);
       count++;
-      if (!check_in_ball(cTree, x, this->region_radius) &&
-          (*this->decision)(samples, x, this->data, this->functions))
+      if (this->use_trust_regions)
       {
-        Point px = Point(x);
-        cTree.insert(px);
-        result_eigen bobyqa_res = run_bobyqa(
-            this->bounds,
-            x,
-            this->region_radius,
-            this->bobyqa_eval,
-            f);
-        samples.push_back({bobyqa_res.first, -bobyqa_res.second});
+        if (check_in_ball(cTree, x, this->trust_region_radius))
+        {
+          continue;
+        }
+      }
+
+      if ((*this->decision)(samples, x, this->data, this->functions))
+      {
+        if (this->use_trust_regions)
+        {
+          Point px = Point(x);
+          cTree.insert(px);
+          result_eigen bobyqa_res = run_bobyqa(
+              this->bounds,
+              x,
+              this->trust_region_radius,
+              this->bobyqa_eval,
+              f);
+          samples.push_back({bobyqa_res.first, -bobyqa_res.second});
+        }
+        else
+        {
+          samples.push_back({x, -f(x)});
+        }
         sort(samples.begin(), samples.end(), compare_pair);
         break;
       }

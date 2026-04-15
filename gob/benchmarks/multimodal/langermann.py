@@ -3,8 +3,8 @@
 #
 
 import numpy as np
-from .benchmark import Benchmark
-from .create_bounds import create_bounds
+from ..benchmark import Benchmark
+from ..create_bounds import create_bounds
 
 
 class Langermann(Benchmark):
