@@ -4,9 +4,9 @@
 import numpy as np
 import inspect
 
-import gob.optimizers as go
-import gob.benchmarks as gb
-import gob.metrics as gm
+import globe.optimizers as go
+import globe.benchmarks as gb
+import globe.metrics as gm
 
 from .benchmarks.create_bounds import create_bounds
 
@@ -17,7 +17,7 @@ from .utils import print_blue, print_dark_green
 from .benchmarks import PyGKLS
 
 
-class GOB:
+class GLOBe:
     """
     Global Optimization Benchmark.
 

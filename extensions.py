@@ -70,7 +70,7 @@ class OptBuild(build_ext):
         else:
             return "cmake -DLIBCMAES_BUILD_EXAMPLES=OFF .. && make -j"
 
-    def build_gob(self, lib_name, pkg_name):
+    def build_globe(self, lib_name, pkg_name):
         if platform.system() == "Windows":
             return f'cmake -DPython_EXECUTABLE={sys.executable} -DNUMPY_INCLUDE_DIRS={np.get_include()} -DEXT_NAME={lib_name} -DCYTHON_CPP_FILE={pkg_name}.cc .. -G "Visual Studio 17 2022" -A x64 && cmake --build . --config Release'
         else:
@@ -83,7 +83,7 @@ class OptBuild(build_ext):
             return f"lib{lib_name}{get_shared_lib_ext()}"
 
     def build_extension(self, ext: Extension):
-        cython_src_dir = Path("gob/optimizers/cpp_optimizers")
+        cython_src_dir = Path("globe/optimizers/cpp_optimizers")
 
         # Clone libcmaes files
         run(
@@ -129,7 +129,7 @@ class OptBuild(build_ext):
             f"&& rm -rf ../*{pkg_ext} "
             f"&& {mkdir('build')} "
             "&& cd build "
-            f"&& {self.build_gob(lib_name, pkg_name)} "
+            f"&& {self.build_globe(lib_name, pkg_name)} "
             f"&& mv {self.shared_lib_path(lib_name)} ../../{lib_name}{pkg_ext} "
             f"&& cd {ext.source_dir.as_posix()}",
             shell=True,
@@ -137,4 +137,4 @@ class OptBuild(build_ext):
         )
 
         # Copy files to the build directory
-        run(f"cp -r gob {ext_dir}", shell=True, check=True)
+        run(f"cp -r globe {ext_dir}", shell=True, check=True)

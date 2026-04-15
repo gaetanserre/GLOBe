@@ -1,5 +1,5 @@
-from gob.benchmarks import *
-import gob.optimizers as go
+from globe.benchmarks import *
+import globe.optimizers as go
 import inspect
 
 

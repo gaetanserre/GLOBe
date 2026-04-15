@@ -1,16 +1,36 @@
-## Global Optimization Benchmark (GLOBe)
+Metadata-Version: 2.4
+Name: gob
+Version: 0.0.7
+Summary: A collection of global optimization algorithms implemented in C++ and linked with Python.
+Author-email: Gaëtan Serré <gaetan.serre@ens-paris-saclay.fr>
+Maintainer-email: Gaëtan Serré <gaetan.serre@ens-paris-saclay.fr>
+Project-URL: Repository, https://github.com/gaetanserre/GOB
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=2.1.3
+Requires-Dist: Cython>=3.0.11
+Requires-Dist: nlopt>=2.9.1
+Requires-Dist: prettytable>=3.16.0
+Requires-Dist: bayesian-optimization>=3.1.0
+Requires-Dist: packaging>=25
+Requires-Dist: gkls>=1.0.2
+Requires-Dist: scipy>=1.16.3
+Requires-Dist: statsmodels>=0.14.5
+Dynamic: license-file
 
-[![CI](https://github.com/gaetanserre/GLOBe/actions/workflows/build.yml/badge.svg)](https://github.com/gaetanserre/GLOBe/actions/workflows/build.yml)
-[![CI](https://github.com/gaetanserre/GLOBe/actions/workflows/build_doc.yml/badge.svg)](https://github.com/gaetanserre/GLOBe/actions/workflows/build_doc.yml)
-[![PyPI version](https://badge.fury.io/py/globe.svg)](https://badge.fury.io/py/globe)
+## Global Optimization Benchmark (GOB)
+
+[![CI](https://github.com/gaetanserre/GOB/actions/workflows/build.yml/badge.svg)](https://github.com/gaetanserre/GOB/actions/workflows/build.yml)
+[![CI](https://github.com/gaetanserre/GOB/actions/workflows/build_doc.yml/badge.svg)](https://github.com/gaetanserre/GOB/actions/workflows/build_doc.yml)
+[![PyPI version](https://badge.fury.io/py/GOB.svg)](https://badge.fury.io/py/GOB)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
 <p align="center">
-  <img src="docs/_static/logo.png" alt="GLOBe Logo" width="250"/>
+  <img src="docs/_static/logo.png" alt="GOB Logo" width="250"/>
 </p>
 
 
-GLOBe is a collection of global optimization algorithms implemented in C++ and linked with Python. It also includes a set of analytical benchmark functions and a random function generator ([PyGKLS](https://github.com/gaetanserre/pyGKLS)) to test the performance of these algorithms.
+GOB is a collection of global optimization algorithms implemented in C++ and linked with Python. It also includes a set of analytical benchmark functions and a random function generator ([PyGKLS](https://github.com/gaetanserre/pyGKLS)) to test the performance of these algorithms.
 
 ### Algorithms
 - [AdaLIPO+](https://dl.acm.org/doi/full/10.1145/3688671.3688763)
@@ -31,17 +51,17 @@ GLOBe is a collection of global optimization algorithms implemented in C++ and l
 - Pure Random Search
 
 ### Documentation
-The documentation is available at [gaetanserre.fr/GLOBe](https://gaetanserre.fr/GLOBe/).
+The documentation is available at [gaetanserre.fr/GOB](https://gaetanserre.fr/GOB/).
 
 ### Installation (Python ≥ 3.10)
 Install the package via pip from PyPI:
 ```bash
-pip install globe
+pip install gob
 ```
 
-Alternatively, download the corresponding wheel file from the [releases](https://github.com/gaetanserre/GLOBe/releases) and install it with pip:
+Alternatively, download the corresponding wheel file from the [releases](https://github.com/gaetanserre/GOB/releases) and install it with pip:
 ```bash
-pip install globe-<version>-<architecture>.whl
+pip install gob-<version>-<architecture>.whl
 ```
 
 ### Build from source
@@ -57,13 +77,13 @@ make html
 ```
 
 ### Usage
-This package can be used to design a complete benchmarking framework for global optimization algorithms, testing multiple algorithms on a set of benchmark functions. See [`test_globe.py`](tests/test_globe_tools.py) for an example of how to use it.
+This package can be used to design a complete benchmarking framework for global optimization algorithms, testing multiple algorithms on a set of benchmark functions. See [`test_gob.py`](tests/test_gob_tools.py) for an example of how to use it.
 
 The global optimization algorithms can also be used independently. For example, to run the AdaLIPO+ algorithm on a benchmark function:
 
 ```python
-from globe.optimizers import AdaLIPO_P
-from globe import create_bounds
+from gob.optimizers import AdaLIPO_P
+from gob import create_bounds
 
 f = lambda x: return x.T @ x
 

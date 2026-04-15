@@ -1,4 +1,4 @@
-name: Build GOB documentation
+name: Build GLOBe documentation
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
           sudo apt install libeigen3-dev
           python -m pip install numpy Cython nlopt prettytable bayesian-optimization gkls
 
-      - name: Build GOB
+      - name: Build GLOBe
         run: |
           ./local_compile.sh
 

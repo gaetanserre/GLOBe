@@ -27,7 +27,7 @@ build_cmaes() {
   fi
 }
 
-build_gob() {
+build_globe() {
   if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
     cmake -DNUMPY_INCLUDE_DIRS=$numpy_include -DEXT_NAME=$lib_name -DCYTHON_CPP_FILE=$pkg_name.cc ..
     make -j
@@ -37,7 +37,7 @@ build_gob() {
   fi
 }
 
-cd gob/optimizers/cpp_optimizers
+cd globe/optimizers/cpp_optimizers
 
 cython --cplus -3 $pkg_name.pyx -o $pkg_name.cc
 
@@ -56,5 +56,5 @@ numpy_include=$(python -c "import numpy; print(numpy.get_include())")
 
 mkdir -p build
 cd build
-build_gob
+build_globe
 mv $shared_library_header$lib_name$shared_library_ext ../../$lib_name
