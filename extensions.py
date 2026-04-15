@@ -2,7 +2,7 @@ import os
 import platform
 import shutil
 from pathlib import Path
-from subprocess import check_call
+from subprocess import check_call, run
 import numpy as np
 import sys
 import urllib.request
@@ -85,21 +85,13 @@ class OptBuild(build_ext):
     def build_extension(self, ext: Extension):
         cython_src_dir = Path("gob/optimizers/cpp_optimizers")
 
-        # Copy libcmaes files
-        os.system(
+        # Clone libcmaes files
+        run(
             f"cd {cython_src_dir} "
             "&& rm -rf libcmaes "
-            "&& git clone https://github.com/gaetanserre/libcmaes.git "
-            "&& cd libcmaes "
-            f"&& {mkdir('build')} "
-            "&& cd build "
-            f"&& {self.build_cma()} "
-            "&& cd ../.. "
-            "&& cp -r libcmaes/include/libcmaes include "
-            "&& cp -r libcmaes/build/include/libcmaes/* include/libcmaes "
-            f"&& cd src && {mkdir('libcmaes')} && cd .. "
-            "&& cp libcmaes/src/**.cc src/libcmaes "
-            "&& rm -rf libcmaes"
+            "&& git clone https://github.com/CMA-ES/libcmaes.git ",
+            shell=True,
+            check=True,
         )
 
         # Copy GLPK files
@@ -107,10 +99,12 @@ class OptBuild(build_ext):
             "https://mirrors.ocf.berkeley.edu/gnu/glpk/glpk-5.0.tar.gz",
             Path(cython_src_dir, "glpk-5.0.tar.gz"),
         )
-        os.system(
+        run(
             f"cd {cython_src_dir} "
             "&& tar -xvf glpk-5.0.tar.gz "
-            "&& rm glpk-5.0.tar.gz"
+            "&& rm glpk-5.0.tar.gz",
+            shell=True,
+            check=True,
         )
 
         ext_dir = Path(self.get_ext_fullpath(ext.name)).parent.absolute()
@@ -122,12 +116,14 @@ class OptBuild(build_ext):
         pkg_ext = ".pyd" if platform.system() == "Windows" else ".so"
 
         # Compile the Cython file
-        os.system(
-            f"cython --cplus -3 {cython_src_dir}/{pkg_name}.pyx -o {cython_src_dir}/{pkg_name}.cc"
+        run(
+            f"cython --cplus -3 {cython_src_dir}/{pkg_name}.pyx -o {cython_src_dir}/{pkg_name}.cc",
+            shell=True,
+            check=True,
         )
 
         # Compile the C++ files
-        os.system(
+        run(
             f"cd {cython_src_dir} "
             "&& ls -la .. "
             f"&& rm -rf ../*{pkg_ext} "
@@ -135,11 +131,10 @@ class OptBuild(build_ext):
             "&& cd build "
             f"&& {self.build_gob(lib_name, pkg_name)} "
             f"&& mv {self.shared_lib_path(lib_name)} ../../{lib_name}{pkg_ext} "
-            f"&& cd {ext.source_dir.as_posix()}"
+            f"&& cd {ext.source_dir.as_posix()}",
+            shell=True,
+            check=True,
         )
 
-        # Clean up
-        os.system(f"rm -rf {cython_src_dir / 'build'}")
-
         # Copy files to the build directory
-        os.system(f"cp -r gob {ext_dir}")
+        run(f"cp -r gob {ext_dir}", shell=True, check=True)

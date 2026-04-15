@@ -42,18 +42,8 @@ cd gob/optimizers/cpp_optimizers
 cython --cplus -3 $pkg_name.pyx -o $pkg_name.cc
 
 
-if [ ! -f include/libcmaes/cmaes_export.h ]; then
-  git clone https://github.com/gaetanserre/libcmaes.git
-  cd libcmaes
-  mkdir build
-  cd build
-  build_cmaes
-  cd ../..
-  cp -r libcmaes/include/libcmaes include
-  cp -r libcmaes/build/include/libcmaes/* include/libcmaes
-  mkdir -p src/libcmaes
-  cp -r libcmaes/src/*.cc src/libcmaes
-  rm -rf libcmaes
+if [ ! -d libcmaes ]; then
+  git clone https://github.com/CMA-ES/libcmaes.git
 fi
 
 if [ ! -d glpk-5.0 ]; then
