@@ -7,7 +7,7 @@ build
 *.0
 libcmaes
 glpk
-globe.egg-info
+globe_opti.egg-info
 cpp_optimizers.cc
 dist
 .DS_Store

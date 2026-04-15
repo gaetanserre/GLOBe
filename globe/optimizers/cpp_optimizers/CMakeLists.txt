@@ -64,11 +64,11 @@ if(WINDOWS)
     include
     ${Python_INCLUDE_DIRS}
     ${NUMPY_INCLUDE_DIRS}
+    ${GLPK_INCLUDE_DIRS}
   )
   target_link_libraries(${EXT_NAME} PRIVATE
     Eigen3::Eigen
     cmaes
-    glpk_obj
     ${Python_LIBRARIES}
   )
 else()
