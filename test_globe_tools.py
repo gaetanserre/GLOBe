@@ -2,10 +2,10 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from gob import GOB
-from gob.benchmarks import PyGKLS, create_bounds, augment_dimensions
+from globe import GLOBe
+from globe.benchmarks import PyGKLS, create_bounds, augment_dimensions
 import inspect
-import gob.benchmarks as gb
+import globe.benchmarks as gb
 
 n_particles = 15
 iter = 10
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     benchmarks.append(pygkls)
     bounds.append(create_bounds(dim, -99, 99))
 
-    gob = GOB(
+    globe = GLOBe(
         [
             ("Langevin", {"n_particles": n_particles, "iter": iter}),
             ("SBS", {"n_particles": n_particles, "iter": iter, "sigma": sigma}),
@@ -34,4 +34,4 @@ if __name__ == "__main__":
         [],
         bounds=bounds,
     )
-    gob.run(n_runs=5, verbose=1, latex_table=True)
+    globe.run(n_runs=5, verbose=1, latex_table=False)

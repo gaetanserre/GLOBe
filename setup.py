@@ -9,7 +9,7 @@ setup(
     name=name,
     version=version,
     setup_requires=["numpy>=2.1.3"],
-    ext_modules=[OptBuildExtension("gob", version)],
+    ext_modules=[OptBuildExtension("globe", version)],
     cmdclass={"build_ext": OptBuild},
     zip_safe=False,
 )

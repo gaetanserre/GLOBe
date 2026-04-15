@@ -5,7 +5,7 @@ authors = [
 maintainers = [
   { name = "Gaëtan Serré", email = "gaetan.serre@ens-paris-saclay.fr" },
 ]
-name = "gob"
+name = "globe"
 version = "0.0.7"
 dependencies = [
   "numpy>=2.1.3",
@@ -22,7 +22,7 @@ description = "A collection of global optimization algorithms implemented in C++
 readme = "README.md"
 
 [project.urls]
-Repository = "https://github.com/gaetanserre/GOB"
+Repository = "https://github.com/gaetanserre/GLOBe"
 
 [build-system]
 requires = ["setuptools", "toml", "numpy>=2.1.3", "Cython>=3.0.11"]

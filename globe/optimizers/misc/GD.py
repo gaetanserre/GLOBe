@@ -34,5 +34,4 @@ class GD(Optimizer):
         for i in range(self.n_step):
             grad, f_x = f.gradient(x)
             x -= self.step_size * grad
-            print(f"{self.name} eval #{i} : {f_x}")
         return x, f(x)

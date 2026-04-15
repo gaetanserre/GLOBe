@@ -56,5 +56,5 @@ class Decision_Optimizer(CPP_Optimizer):
                 self.n_eval = n_eval // self.bobyqa_eval
         else:
             self.n_eval = n_eval
-
+        name = name + "+TR" if self.trust_region_radius > 0 else name
         super().__init__(name, bounds, verbose)

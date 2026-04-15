@@ -1,36 +1,36 @@
-.. GOB documentation master file, created by
+.. GLOBe documentation master file, created by
    sphinx-quickstart on Tue Sep  9 16:03:23 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-GOB documentation
-=================
+GLOBe documentation
+===================
 
-Welcome to the **GOB** documentation.
+Welcome to the **GLOBe** documentation.
 
-**GOB** is a Python package for **global optimization**, providing several algorithms such as SBS, AdaRankOpt, DIRECT, CMA-ES, BayesOpt, and more.
+**GLOBe** is a Python package for **global optimization**, providing several algorithms such as SBS, AdaRankOpt, DIRECT, CMA-ES, BayesOpt, and more.
 
 This documentation includes:
 
 - A brief introduction to the package
 - A complete API reference
 
-GOB as a Benchmark suite
-------------------------
+GLOBe as a Benchmark suite
+--------------------------
 .. code-block:: python
   
-  from gob import GOB
-  from gob.benchmarks import PyGKLS, create_bounds
+  from globe import GLOBe
+  from globe.benchmarks import PyGKLS, create_bounds
 
   if __name__ == "__main__":
       pygkls = PyGKLS(2, 15, [-100, 100], -100, smoothness="ND")
-      gob = GOB(
+      globe = GLOBe(
           ["CBO", ("SBS", {"iter": 10}), "SBS", "AdaLIPO+TR", "CMA-ES", "PSO"],
           ["Square", pygkls],
           ["Proportion"],
           bounds=create_bounds(2, -99, 99, 2),
       )
-      gob.run(n_runs=10, verbose=1)
+      globe.run(n_runs=10, verbose=1)
 
 Example output:
 
@@ -83,14 +83,14 @@ Example output:
   |    PSO     |      100.0000     |
   +------------+-------------------+
 
-GOB as a library of optimizers
-------------------------------
+GLOBe as a library of optimizers
+--------------------------------
 
 .. code-block:: python
 
-  from gob.benchmarks import *
-  from gob.optimizers import *
-  from gob import create_bounds
+  from globe.benchmarks import *
+  from globe.optimizers import *
+  from globe import create_bounds
 
   f = Square()
   bounds = create_bounds(2, -10, 10)
@@ -114,7 +114,7 @@ For more details, explore the modules below and refer to the examples for practi
 .. toctree::
    :maxdepth: 1
 
-   gob
+   globe
 
 .. toctree::
    :maxdepth: 2

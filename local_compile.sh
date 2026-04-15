@@ -27,7 +27,7 @@ build_cmaes() {
   fi
 }
 
-build_gob() {
+build_globe() {
   if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
     cmake -DNUMPY_INCLUDE_DIRS=$numpy_include -DEXT_NAME=$lib_name -DCYTHON_CPP_FILE=$pkg_name.cc ..
     make -j
@@ -37,23 +37,13 @@ build_gob() {
   fi
 }
 
-cd gob/optimizers/cpp_optimizers
+cd globe/optimizers/cpp_optimizers
 
 cython --cplus -3 $pkg_name.pyx -o $pkg_name.cc
 
 
-if [ ! -f include/libcmaes/cmaes_export.h ]; then
-  git clone https://github.com/gaetanserre/libcmaes.git
-  cd libcmaes
-  mkdir build
-  cd build
-  build_cmaes
-  cd ../..
-  cp -r libcmaes/include/libcmaes include
-  cp -r libcmaes/build/include/libcmaes/* include/libcmaes
-  mkdir -p src/libcmaes
-  cp -r libcmaes/src/*.cc src/libcmaes
-  rm -rf libcmaes
+if [ ! -d libcmaes ]; then
+  git clone https://github.com/CMA-ES/libcmaes.git
 fi
 
 if [ ! -d glpk-5.0 ]; then
@@ -66,5 +56,5 @@ numpy_include=$(python -c "import numpy; print(numpy.get_include())")
 
 mkdir -p build
 cd build
-build_gob
+build_globe
 mv $shared_library_header$lib_name$shared_library_ext ../../$lib_name

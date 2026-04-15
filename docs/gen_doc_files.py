@@ -2,9 +2,9 @@ import sys
 
 sys.path.append("../")
 import inspect
-import gob.optimizers as go
-import gob.metrics as gm
-import gob.benchmarks as gb
+import globe.optimizers as go
+import globe.metrics as gm
+import globe.benchmarks as gb
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
@@ -223,7 +223,7 @@ def create_benchmark_rst(
             "random test functions, with control over their geometry.\n\n"
         )
 
-    content += create_rst_automodule(f"gob.benchmarks.{module_path}")
+    content += create_rst_automodule(f"globe.benchmarks.{module_path}")
 
     return content
 
@@ -252,10 +252,10 @@ def generate_optimizers_documentation(output_dir: Path) -> None:
 
             content = (
                 f"{create_rst_header(str(opt_instance))}\n\n"
-                f"{create_rst_automodule(f'gob.optimizers.{module_path}.{name}')}"
+                f"{create_rst_automodule(f'globe.optimizers.{module_path}.{name}')}"
             )
 
-            file_path = submodule_dir / f"gob.{name}.rst"
+            file_path = submodule_dir / f"globe.{name}.rst"
             create_file(file_path, content)
             files_list.append(file_path.stem)
 
@@ -280,10 +280,10 @@ def generate_metrics_documentation(output_dir: Path) -> None:
 
         content = (
             f"{create_rst_header(str(metric_instance))}\n\n"
-            f"{create_rst_automodule(f'gob.metrics.{name.lower()}')}"
+            f"{create_rst_automodule(f'globe.metrics.{name.lower()}')}"
         )
 
-        file_path = output_dir / "metrics" / f"gob.{name}.rst"
+        file_path = output_dir / "metrics" / f"globe.{name}.rst"
         create_file(file_path, content)
         files_list.append(file_path.stem)
 
@@ -329,7 +329,7 @@ def generate_benchmarks_documentation(output_dir: Path) -> None:
                 is_pygkls=is_pygkls,
             )
 
-            file_path = submodule_dir / f"gob.{name}.rst"
+            file_path = submodule_dir / f"globe.{name}.rst"
             create_file(file_path, content)
             files_list.append(file_path.stem)
 

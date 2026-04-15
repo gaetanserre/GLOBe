@@ -4,6 +4,6 @@
 
 from .benchmarks import *
 from .optimizers import *
-from .gob import GOB
+from .globe import GLOBe
 
-__all__ = ["GOB", "create_bounds"]
+__all__ = ["GLOBe", "create_bounds"]
