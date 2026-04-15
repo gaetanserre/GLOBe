@@ -18,7 +18,6 @@ from .particles.PSO import PSO
 from .particles.Langevin import Langevin
 from .particles.Full_Noise import Full_Noise
 from .particles.MSGD import MSGD
-from .particles.WOA.WOA import WOA
 from .particles.common_noise.SMD.SMD_Langevin import SMD_Langevin
 from .particles.common_noise.SMD.SMD_SBS import SMD_SBS
 from .particles.common_noise.SMD.SMD_CBO import SMD_CBO
