@@ -3,37 +3,29 @@
  */
 
 #include "optimizers/decision/AdaLIPO_P.hh"
-#include "optimizers/decision/trust_regions.hh"
+#include "optimizers/decision/decision.hh"
 
-namespace AdaLIPO_P_trust
+namespace AdaLIPO_P_decision
 {
   bool decision(
-      vector<pair<dyn_vector, double>> samples,
+      vector<result_eigen> samples,
       dyn_vector x, vector<void *> data,
       vector<void (*)(void)> functions)
   {
     if (samples.size() == 0)
       return true;
     double *k_hat = (double *)data[0];
-    vector<dyn_vector> points(samples.size());
-    vector<double> values(samples.size());
+    vector<double> norms(samples.size());
     for (int i = 0; i < samples.size(); i++)
     {
-      points[i] = samples[i].first;
-      values[i] = samples[i].second;
+      norms[i] = samples[i].second + *k_hat * (x - samples[i].first).norm();
     }
-
-    double max_values = max_vec(values);
-    vector<double> norms(points.size());
-    for (int i = 0; i < points.size(); i++)
-    {
-      norms[i] = values[i] + *k_hat * (x - points[i]).norm();
-    }
+    double max_values = samples.back().second;
     return max_values <= min_vec(norms);
   }
 
   void callback(
-      vector<pair<dyn_vector, double>> samples,
+      vector<result_eigen> samples,
       vector<void *> data,
       vector<void (*)(void)> functions)
   {
@@ -41,20 +33,12 @@ namespace AdaLIPO_P_trust
     {
       double *k_hat = (double *)data[0];
       vector<double> *ratios = (vector<double> *)data[1];
-      vector<dyn_vector> points(samples.size());
-      vector<double> values(samples.size());
-      for (int i = 0; i < samples.size(); i++)
-      {
-        points[i] = samples[i].first;
-        values[i] = samples[i].second;
-      }
-
       double alpha = 1e-2;
-      dyn_vector x = points.back();
-      double value = values.back();
+      dyn_vector x = samples.back().first;
+      double value = samples.back().second;
       for (int i = 0; i < samples.size() - 1; i++)
       {
-        (*ratios).push_back(abs(value - values[i]) / (x - points[i]).norm());
+        (*ratios).push_back(abs(value - samples[i].second) / (x - samples[i].first).norm());
       }
       int i = ceil(log(max_vec(*ratios)) / log(1 + alpha));
       *k_hat = pow(1 + alpha, i);
@@ -73,19 +57,19 @@ result_eigen AdaLIPO_P::minimize(function<double(dyn_vector)> f)
 
   vector<void (*)(void)> functions(0);
 
-  TrustRegions tr = TrustRegions(
+  Decision dec = Decision(
       this->bounds,
       this->n_eval,
       this->max_trials,
-      this->trust_region_radius,
-      this->bobyqa_eval,
       data,
       functions,
-      &AdaLIPO_P_trust::decision,
-      &AdaLIPO_P_trust::callback);
+      &AdaLIPO_P_decision::decision,
+      this->trust_region_radius,
+      this->bobyqa_eval,
+      &AdaLIPO_P_decision::callback);
 
   if (this->has_stop_criterion)
-    tr.set_stop_criterion(this->stop_criterion);
+    dec.set_stop_criterion(this->stop_criterion);
 
-  return tr.minimize(f);
+  return dec.minimize(f);
 }

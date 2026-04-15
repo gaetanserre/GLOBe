@@ -2,8 +2,8 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from .benchmark import Benchmark
-from .create_bounds import create_bounds
+from ..benchmark import Benchmark
+from ..create_bounds import create_bounds
 
 
 class Square(Benchmark):

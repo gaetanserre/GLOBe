@@ -2,7 +2,7 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from .benchmark import Benchmark
+from ..benchmark import Benchmark
 
 from gkls import GKLS
 import numpy as np

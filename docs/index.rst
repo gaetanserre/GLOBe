@@ -117,16 +117,16 @@ For more details, explore the modules below and refer to the examples for practi
    gob
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    source/optimizers/index
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    source/benchmarks/index
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    source/metrics/index

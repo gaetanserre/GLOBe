@@ -3,12 +3,12 @@
  */
 
 #include "optimizers/decision/ECP.hh"
-#include "optimizers/decision/trust_regions.hh"
+#include "optimizers/decision/decision.hh"
 
-namespace ECP_trust
+namespace ECP_decision
 {
   bool decision(
-      vector<pair<dyn_vector, double>> samples,
+      vector<result_eigen> samples,
       dyn_vector x, vector<void *> data,
       vector<void (*)(void)> functions)
   {
@@ -27,20 +27,11 @@ namespace ECP_trust
       *epsilon = *epsilon * *theta;
       *h2 = 0;
     }
-
-    vector<dyn_vector> points(samples.size());
-    vector<double> values(samples.size());
+    double max_values = samples.back().second;
+    vector<double> norms(samples.size());
     for (int i = 0; i < samples.size(); i++)
     {
-      points[i] = samples[i].first;
-      values[i] = samples[i].second;
-    }
-
-    double max_values = max_vec(values);
-    vector<double> norms(points.size());
-    for (int i = 0; i < points.size(); i++)
-    {
-      norms[i] = values[i] + *epsilon * (x - points[i]).norm();
+      norms[i] = samples[i].second + *epsilon * (x - samples[i].first).norm();
     }
     bool res = max_values <= min_vec(norms);
     if (res)
@@ -66,18 +57,18 @@ result_eigen ECP::minimize(function<double(dyn_vector)> f)
 
   vector<void (*)(void)> functions(0);
 
-  TrustRegions tr = TrustRegions(
+  Decision dec = Decision(
       this->bounds,
       this->n_eval,
-      10000000,
-      this->trust_region_radius,
-      this->bobyqa_eval,
+      this->max_trials,
       data,
       functions,
-      &ECP_trust::decision);
+      &ECP_decision::decision,
+      this->trust_region_radius,
+      this->bobyqa_eval);
 
   if (this->has_stop_criterion)
-    tr.set_stop_criterion(this->stop_criterion);
+    dec.set_stop_criterion(this->stop_criterion);
 
-  return tr.minimize(f);
+  return dec.minimize(f);
 }
