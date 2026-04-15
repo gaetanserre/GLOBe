@@ -1,0 +1,7 @@
+f_target
+========
+
+.. automodule:: globe.metrics.f_target
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,12 @@
+Schwefel
+========
+
+.. image:: graphs/Schwefel.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: globe.benchmarks.multimodal.schwefel
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,7 @@
+BayesOpt
+========
+
+.. automodule:: globe.optimizers.misc.BayesOpt
+   :members:
+   :show-inheritance:
+   :undoc-members:

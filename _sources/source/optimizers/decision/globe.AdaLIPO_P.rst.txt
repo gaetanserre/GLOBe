@@ -1,0 +1,7 @@
+AdaLIPO+TR
+==========
+
+.. automodule:: globe.optimizers.decision.AdaLIPO_P
+   :members:
+   :show-inheritance:
+   :undoc-members:

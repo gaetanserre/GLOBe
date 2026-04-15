@@ -1,7 +1,0 @@
-CRS
-===
-
-.. automodule:: gob.optimizers.misc.CRS
-   :members:
-   :show-inheritance:
-   :undoc-members:

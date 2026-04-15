@@ -2,14 +2,14 @@
 
 ## Using wheel
 
-The easiest way to install GOB is via pip from PyPI:
+The easiest way to install GLOBe is via pip from PyPI:
 ```bash
-pip install gob
+pip install globe-opti
 ```
-Alternatively, you can download the latest wheel from the [releases page](https://github.com/gaetanserre/GOB/releases) on GitHub and install it using pip:
+Alternatively, you can download the latest wheel from the [releases page](https://github.com/gaetanserre/GLOBe/releases) on GitHub and install it using pip:
 
 ```bash
-pip install gob-<version>-<architecture>.whl
+pip install globe-opti-<version>-<architecture>.whl
 ```
 
 ## Build from source

@@ -1,0 +1,7 @@
+GD
+==
+
+.. automodule:: globe.optimizers.misc.GD
+   :members:
+   :show-inheritance:
+   :undoc-members:

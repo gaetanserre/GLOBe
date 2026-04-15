@@ -4,6 +4,6 @@ Decision
 .. toctree::
    :maxdepth: 1
 
-   gob.AdaLIPO_P
-   gob.AdaRankOpt
-   gob.ECP
+   globe.AdaLIPO_P
+   globe.AdaRankOpt
+   globe.ECP

@@ -4,13 +4,13 @@ Multimodal
 .. toctree::
    :maxdepth: 1
 
-   gob.Ackley
-   gob.Deb
-   gob.Griewank
-   gob.Langermann
-   gob.Levy
-   gob.Michalewicz
-   gob.PyGKLS
-   gob.Rastrigin
-   gob.Schwefel
-   gob.Styblinskitang
+   globe.Ackley
+   globe.Deb
+   globe.Griewank
+   globe.Langermann
+   globe.Levy
+   globe.Michalewicz
+   globe.PyGKLS
+   globe.Rastrigin
+   globe.Schwefel
+   globe.Styblinskitang

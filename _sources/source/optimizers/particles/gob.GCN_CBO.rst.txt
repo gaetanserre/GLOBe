@@ -1,7 +1,0 @@
-GCN-CBO
-=======
-
-.. automodule:: gob.optimizers.particles.common_noise.GCN.GCN_CBO
-   :members:
-   :show-inheritance:
-   :undoc-members:

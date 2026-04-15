@@ -1,0 +1,12 @@
+Hyper-Ellipsoid
+===============
+
+.. image:: graphs/Hyperellipsoid.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: globe.benchmarks.unimodal.hyperellipsoid
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -4,11 +4,11 @@ Unimodal
 .. toctree::
    :maxdepth: 1
 
-   gob.Bentcigar
-   gob.Dixonprice
-   gob.Hyperellipsoid
-   gob.Rosenbrock
-   gob.Square
-   gob.Sumpow
-   gob.Trid
-   gob.Zakharov
+   globe.Bentcigar
+   globe.Dixonprice
+   globe.Hyperellipsoid
+   globe.Rosenbrock
+   globe.Square
+   globe.Sumpow
+   globe.Trid
+   globe.Zakharov

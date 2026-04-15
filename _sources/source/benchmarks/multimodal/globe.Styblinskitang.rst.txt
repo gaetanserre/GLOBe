@@ -1,0 +1,12 @@
+Styblinski-Tang
+===============
+
+.. image:: graphs/Styblinskitang.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: globe.benchmarks.multimodal.styblinskitang
+   :members:
+   :show-inheritance:
+   :undoc-members:

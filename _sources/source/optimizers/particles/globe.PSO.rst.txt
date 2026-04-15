@@ -1,0 +1,7 @@
+PSO
+===
+
+.. automodule:: globe.optimizers.particles.PSO
+   :members:
+   :show-inheritance:
+   :undoc-members:

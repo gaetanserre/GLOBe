@@ -1,7 +1,0 @@
-AdaLIPO
-=======
-
-.. automodule:: gob.optimizers.decision.AdaLIPO_P
-   :members:
-   :show-inheritance:
-   :undoc-members:

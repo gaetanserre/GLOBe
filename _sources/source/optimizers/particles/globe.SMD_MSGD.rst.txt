@@ -1,0 +1,7 @@
+SMD-MSGD
+========
+
+.. automodule:: globe.optimizers.particles.common_noise.SMD.SMD_MSGD
+   :members:
+   :show-inheritance:
+   :undoc-members:

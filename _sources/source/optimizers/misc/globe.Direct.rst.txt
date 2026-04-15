@@ -1,0 +1,7 @@
+Direct
+======
+
+.. automodule:: globe.optimizers.misc.Direct
+   :members:
+   :show-inheritance:
+   :undoc-members:

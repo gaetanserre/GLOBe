@@ -1,0 +1,7 @@
+CRS
+===
+
+.. automodule:: globe.optimizers.misc.CRS
+   :members:
+   :show-inheritance:
+   :undoc-members:

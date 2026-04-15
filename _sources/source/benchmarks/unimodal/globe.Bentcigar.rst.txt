@@ -1,0 +1,12 @@
+Bent cigar
+==========
+
+.. image:: graphs/Bentcigar.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: globe.benchmarks.unimodal.bentcigar
+   :members:
+   :show-inheritance:
+   :undoc-members:

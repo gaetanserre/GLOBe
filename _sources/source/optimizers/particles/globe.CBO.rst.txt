@@ -1,0 +1,7 @@
+CBO
+===
+
+.. automodule:: globe.optimizers.particles.CBO
+   :members:
+   :show-inheritance:
+   :undoc-members:

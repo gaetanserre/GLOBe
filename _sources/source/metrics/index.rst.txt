@@ -4,5 +4,5 @@ Metrics
 .. toctree::
    :maxdepth: 1
 
-   gob.Proportion
-   gob.f_target
+   globe.Proportion
+   globe.f_target

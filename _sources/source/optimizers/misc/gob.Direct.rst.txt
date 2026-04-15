@@ -1,7 +1,0 @@
-Direct
-======
-
-.. automodule:: gob.optimizers.misc.Direct
-   :members:
-   :show-inheritance:
-   :undoc-members:

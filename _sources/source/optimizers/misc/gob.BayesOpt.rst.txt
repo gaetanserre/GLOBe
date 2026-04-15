@@ -1,7 +1,0 @@
-BayesOpt
-========
-
-.. automodule:: gob.optimizers.misc.BayesOpt
-   :members:
-   :show-inheritance:
-   :undoc-members:

@@ -1,0 +1,7 @@
+AdaRankOpt+TR
+=============
+
+.. automodule:: globe.optimizers.decision.AdaRankOpt
+   :members:
+   :show-inheritance:
+   :undoc-members:

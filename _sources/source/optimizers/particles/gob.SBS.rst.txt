@@ -1,7 +1,0 @@
-SBS
-===
-
-.. automodule:: gob.optimizers.particles.SBS
-   :members:
-   :show-inheritance:
-   :undoc-members:

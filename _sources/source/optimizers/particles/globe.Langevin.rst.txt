@@ -1,0 +1,7 @@
+Langevin
+========
+
+.. automodule:: globe.optimizers.particles.Langevin
+   :members:
+   :show-inheritance:
+   :undoc-members:

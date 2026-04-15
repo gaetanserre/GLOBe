@@ -1,7 +1,0 @@
-SMD-SBS
-=======
-
-.. automodule:: gob.optimizers.particles.common_noise.SMD.SMD_SBS
-   :members:
-   :show-inheritance:
-   :undoc-members:

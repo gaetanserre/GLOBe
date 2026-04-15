@@ -1,0 +1,7 @@
+Proportion
+==========
+
+.. automodule:: globe.metrics.proportion
+   :members:
+   :show-inheritance:
+   :undoc-members:

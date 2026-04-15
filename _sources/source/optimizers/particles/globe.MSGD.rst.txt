@@ -1,0 +1,7 @@
+MSGD
+====
+
+.. automodule:: globe.optimizers.particles.MSGD
+   :members:
+   :show-inheritance:
+   :undoc-members:

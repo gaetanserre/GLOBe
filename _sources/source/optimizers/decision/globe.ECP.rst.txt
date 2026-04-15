@@ -1,0 +1,7 @@
+ECP+TR
+======
+
+.. automodule:: globe.optimizers.decision.ECP
+   :members:
+   :show-inheritance:
+   :undoc-members:

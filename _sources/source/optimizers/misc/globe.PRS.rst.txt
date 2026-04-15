@@ -1,0 +1,7 @@
+PRS
+===
+
+.. automodule:: globe.optimizers.misc.PRS
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,7 +1,0 @@
-PSO
-===
-
-.. automodule:: gob.optimizers.particles.PSO
-   :members:
-   :show-inheritance:
-   :undoc-members:

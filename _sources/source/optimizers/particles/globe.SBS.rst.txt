@@ -1,0 +1,7 @@
+SBS
+===
+
+.. automodule:: globe.optimizers.particles.SBS
+   :members:
+   :show-inheritance:
+   :undoc-members:

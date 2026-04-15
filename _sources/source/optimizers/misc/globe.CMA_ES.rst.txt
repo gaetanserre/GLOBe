@@ -1,0 +1,7 @@
+CMA-ES
+======
+
+.. automodule:: globe.optimizers.misc.CMA_ES
+   :members:
+   :show-inheritance:
+   :undoc-members:

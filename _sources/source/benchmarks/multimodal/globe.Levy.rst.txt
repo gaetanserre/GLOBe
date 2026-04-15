@@ -1,0 +1,12 @@
+Levy
+====
+
+.. image:: graphs/Levy.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: globe.benchmarks.multimodal.levy
+   :members:
+   :show-inheritance:
+   :undoc-members:
