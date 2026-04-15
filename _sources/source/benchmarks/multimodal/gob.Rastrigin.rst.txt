@@ -1,0 +1,12 @@
+Rastrigin
+=========
+
+.. image:: graphs/Rastrigin.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: gob.benchmarks.multimodal.rastrigin
+   :members:
+   :show-inheritance:
+   :undoc-members:

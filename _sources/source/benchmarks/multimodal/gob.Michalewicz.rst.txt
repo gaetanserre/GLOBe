@@ -1,0 +1,12 @@
+Michalewicz
+===========
+
+.. image:: graphs/Michalewicz.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: gob.benchmarks.multimodal.michalewicz
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,16 @@
+Multimodal
+==========
+
+.. toctree::
+   :maxdepth: 1
+
+   gob.Ackley
+   gob.Deb
+   gob.Griewank
+   gob.Langermann
+   gob.Levy
+   gob.Michalewicz
+   gob.PyGKLS
+   gob.Rastrigin
+   gob.Schwefel
+   gob.Styblinskitang

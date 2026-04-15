@@ -1,7 +1,0 @@
-WOA
-===
-
-.. automodule:: gob.optimizers.particles.WOA.WOA
-   :members:
-   :show-inheritance:
-   :undoc-members:

@@ -1,0 +1,12 @@
+Deb N.1
+=======
+
+.. image:: graphs/Deb.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: gob.benchmarks.multimodal.deb
+   :members:
+   :show-inheritance:
+   :undoc-members:

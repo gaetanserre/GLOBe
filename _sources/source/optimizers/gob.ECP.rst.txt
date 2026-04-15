@@ -1,7 +1,0 @@
-ECP+TR
-======
-
-.. automodule:: gob.optimizers.decision.ECP
-   :members:
-   :show-inheritance:
-   :undoc-members:

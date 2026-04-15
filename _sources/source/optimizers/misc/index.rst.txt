@@ -1,0 +1,13 @@
+Misc
+====
+
+.. toctree::
+   :maxdepth: 1
+
+   gob.BayesOpt
+   gob.CMA_ES
+   gob.CRS
+   gob.Direct
+   gob.GD
+   gob.MLSL
+   gob.PRS

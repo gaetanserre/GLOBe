@@ -1,0 +1,12 @@
+Dixon-Price
+===========
+
+.. image:: graphs/Dixonprice.png
+   :width: 550px
+   :height: 550px
+   :align: center
+
+.. automodule:: gob.benchmarks.unimodal.dixonprice
+   :members:
+   :show-inheritance:
+   :undoc-members:
