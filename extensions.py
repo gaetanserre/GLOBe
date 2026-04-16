@@ -148,6 +148,7 @@ class OptBuild(build_ext):
 
         # Clean up
         run(f"rm -rf {cython_src_dir / 'build'}", shell=True, check=True)
+        run(f"rm -rf {cython_src_dir / 'glpk-5.0'}", shell=True, check=True)
 
         # Copy files to the build directory
         run(f"cp -r globe {ext_dir}", shell=True, check=True)
