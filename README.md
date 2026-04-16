@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/gaetanserre/GLOBe/actions/workflows/build.yml/badge.svg)](https://github.com/gaetanserre/GLOBe/actions/workflows/build.yml)
 [![CI](https://github.com/gaetanserre/GLOBe/actions/workflows/build_doc.yml/badge.svg)](https://github.com/gaetanserre/GLOBe/actions/workflows/build_doc.yml)
-[![PyPI version](https://badge.fury.io/py/globe.svg)](https://badge.fury.io/py/globe)
+[![PyPI version](https://badge.fury.io/py/globe-opti.svg)](https://badge.fury.io/py/globe-opti)
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
 <p align="center">
