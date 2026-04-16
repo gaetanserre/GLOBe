@@ -19,10 +19,10 @@ fi
 
 build_cmaes() {
   if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
-    cmake -DLIBCMAES_BUILD_EXAMPLES=OFF ..
+    cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF ..
     make -j
   else
-    cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -G "Visual Studio 17 2022" -A x64 ..
+    cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF -G "Visual Studio 17 2022" -A x64 ..
     cmake --build . --config Release
   fi
 }

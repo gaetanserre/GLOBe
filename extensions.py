@@ -66,9 +66,9 @@ class OptBuild(build_ext):
 
     def build_cma(self):
         if platform.system() == "Windows":
-            return 'cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -G "Visual Studio 17 2022" -A x64 .. && cmake --build . --config Release'
+            return 'cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF -G "Visual Studio 17 2022" -A x64 .. && cmake --build . --config Release'
         else:
-            return "cmake -DLIBCMAES_BUILD_EXAMPLES=OFF .. && make -j"
+            return "cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF .. && make -j"
 
     def build_globe(self, lib_name, pkg_name):
         if platform.system() == "Windows":
