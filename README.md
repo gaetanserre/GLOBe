@@ -70,7 +70,7 @@ The global optimization algorithms can also be used independently. For example, 
 from globe.optimizers import AdaLIPO_P
 from globe import create_bounds
 
-f = lambda x: return x.T @ x
+f = lambda x: x.T @ x
 
 opt = AdaLIPO_P(create_bounds(2, -5, 5), 300)
 res = opt.minimize(f)
