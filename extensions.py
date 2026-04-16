@@ -85,11 +85,21 @@ class OptBuild(build_ext):
     def build_extension(self, ext: Extension):
         cython_src_dir = Path("globe/optimizers/cpp_optimizers")
 
-        # Clone libcmaes files
+        # Copy libcmaes files
         run(
             f"cd {cython_src_dir} "
             "&& rm -rf libcmaes "
-            "&& git clone https://github.com/CMA-ES/libcmaes.git ",
+            "&& git clone https://github.com/CMA-ES/libcmaes.git "
+            "&& cd libcmaes "
+            f"&& {mkdir('build')} "
+            "&& cd build "
+            f"&& {self.build_cma()} "
+            "&& cd ../.. "
+            "&& cp -r libcmaes/include/libcmaes include "
+            "&& cp -r libcmaes/build/include/libcmaes/* include/libcmaes "
+            f"&& cd src && {mkdir('libcmaes')} && cd .. "
+            "&& cp libcmaes/src/**.cc src/libcmaes "
+            "&& rm -rf libcmaes",
             shell=True,
             check=True,
         )
@@ -135,6 +145,9 @@ class OptBuild(build_ext):
             shell=True,
             check=True,
         )
+
+        # Clean up
+        run(f"rm -rf {cython_src_dir / 'build'}", shell=True, check=True)
 
         # Copy files to the build directory
         run(f"cp -r globe {ext_dir}", shell=True, check=True)
