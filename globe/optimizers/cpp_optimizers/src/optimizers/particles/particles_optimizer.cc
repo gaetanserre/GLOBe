@@ -6,6 +6,12 @@
 
 void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<double(dyn_vector x)> f, vector<double> *all_evals, vector<dyn_vector> *samples, int &t)
 {
+  Eigen::MatrixXd *particles_old_ptr;
+  if (this->filter != nullptr)
+  {
+    particles_old_ptr = new Eigen::MatrixXd(*particles);
+  }
+
   vector<double> evals((*particles).rows());
   for (int i = 0; i < particles->rows(); i++)
   {
@@ -24,6 +30,10 @@ void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<
     all_evals->push_back(evals[j]);
     particles->row(j) += sqrt(dt) * dyn.noise.row(j);
     particles->row(j) = clip_vector(particles->row(j), this->bounds);
+  }
+  if (this->filter != nullptr)
+  {
+    this->filter->step(particles_old_ptr, particles);
   }
 }
 

@@ -2,13 +2,13 @@
 # Created in 2025 by Gaëtan Serré
 #
 
-from ....cpp_optimizer import CPP_Optimizer
+from ...particles_optimizer import Particles_Optimizer
 from ....cpp_optimizers import GCN_PSO as CGCN_PSO
 
 
-class GCN_PSO(CPP_Optimizer):
+class GCN_PSO(Particles_Optimizer):
     """
-    Interface for the Geometric Common Noise PSO optimizer.
+    Interface for the Geometric Common Noise PSO optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -24,6 +24,10 @@ class GCN_PSO(CPP_Optimizer):
         The inverse temperature.
     alpha : float
         The coefficient to decrease the step size.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     sigma_noise : float
         The kernel bandwidth for the common noise.
     verbose : bool
@@ -38,10 +42,11 @@ class GCN_PSO(CPP_Optimizer):
         dt=0.1,
         beta=1e5,
         alpha=1,
+        filter_type=None,
         sigma_noise=1,
         verbose=False,
     ):
-        super().__init__("GCN-PSO", bounds, verbose)
+        super().__init__("GCN-PSO", bounds, filter_type=filter_type, verbose=verbose)
 
         self.c_opt = CGCN_PSO(
             bounds,
@@ -50,5 +55,6 @@ class GCN_PSO(CPP_Optimizer):
             dt,
             beta,
             alpha,
+            self.filter_type,
             sigma_noise,
         )

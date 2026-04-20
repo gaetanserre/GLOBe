@@ -15,7 +15,8 @@ public:
       int iter,
       double dt,
       double sigma,
-      int batch_size) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, 1), "SBS")
+      int batch_size,
+      int filter_type) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, 1), filter_type, "SBS")
   {
     this->sigma = sigma;
   }

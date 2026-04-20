@@ -1,10 +1,10 @@
-from ....cpp_optimizer import CPP_Optimizer
+from ...particles_optimizer import Particles_Optimizer
 from ....cpp_optimizers import GCN_Langevin as CGCN_Langevin
 
 
-class GCN_MSGD(CPP_Optimizer):
+class GCN_MSGD(Particles_Optimizer):
     """
-    Interface for the Geometric Common Noise Multi-Start Gradient Descent optimizer.
+    Interface for the Geometric Common Noise Multi-Start Gradient Descent optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -16,6 +16,10 @@ class GCN_MSGD(CPP_Optimizer):
         The number of iterations.
     dt : float
         The time step.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     sigma_noise : float
         The kernel bandwidth for the common noise.
     verbose : bool
@@ -28,9 +32,12 @@ class GCN_MSGD(CPP_Optimizer):
         n_particles=200,
         iter=100,
         dt=0.1,
+        filter_type=None,
         sigma_noise=1,
         verbose=False,
     ):
-        super().__init__("GCN-MSGD", bounds, verbose)
+        super().__init__("GCN-MSGD", bounds, filter_type=filter_type, verbose=verbose)
 
-        self.c_opt = CGCN_Langevin(bounds, n_particles, iter, dt, 0, sigma_noise, False)
+        self.c_opt = CGCN_Langevin(
+            bounds, n_particles, iter, dt, 0, self.filter_type, sigma_noise, False
+        )

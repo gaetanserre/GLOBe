@@ -2,13 +2,13 @@
 # Created in 2025 by Gaëtan Serré
 #
 
-from ..cpp_optimizer import CPP_Optimizer
+from .particles_optimizer import Particles_Optimizer
 from ..cpp_optimizers import PSO as C_PSO
 
 
-class PSO(CPP_Optimizer):
+class PSO(Particles_Optimizer):
     """
-    Interface for the *social only* PSO optimizer.
+    Interface for the *social only* PSO optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -27,6 +27,10 @@ class PSO(CPP_Optimizer):
     batch_size : int
         The batch size for the mini-batch optimization. If 0, no mini-batch
         optimization is used.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     verbose : bool
         Whether to print information about the optimization process.
     """
@@ -40,7 +44,10 @@ class PSO(CPP_Optimizer):
         beta=1e5,
         alpha=1,
         batch_size=0,
+        filter_type=None,
         verbose=False,
     ):
-        super().__init__("PSO", bounds, verbose)
-        self.c_opt = C_PSO(bounds, n_particles, iter, dt, beta, alpha, batch_size)
+        super().__init__("PSO", bounds, filter_type=filter_type, verbose=verbose)
+        self.c_opt = C_PSO(
+            bounds, n_particles, iter, dt, beta, alpha, batch_size, self.filter_type
+        )

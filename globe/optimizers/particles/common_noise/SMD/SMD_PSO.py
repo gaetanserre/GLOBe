@@ -8,7 +8,7 @@ from ....cpp_optimizers import SMD_PSO as CSMD_PSO
 
 class SMD_PSO(SMD_Optimizer):
     """
-    Interface for the Stochastic Moment Dynamics PSO optimizer.
+    Interface for the Stochastic Moment Dynamics PSO optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -24,6 +24,10 @@ class SMD_PSO(SMD_Optimizer):
         The inverse temperature.
     alpha : float
         The coefficient to decrease the step size.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     gamma : float
         The coefficient for the common noise.
     ``lambda_`` : float
@@ -48,9 +52,12 @@ class SMD_PSO(SMD_Optimizer):
         lambda_=1e-10,
         delta=2.1,
         moment="M1",
+        filter_type=None,
         verbose=False,
     ):
-        super().__init__("PSO", bounds, moment, verbose)
+        super().__init__(
+            "PSO", bounds, moment, filter_type=filter_type, verbose=verbose
+        )
 
         self.c_opt = CSMD_PSO(
             bounds,
@@ -59,6 +66,7 @@ class SMD_PSO(SMD_Optimizer):
             dt,
             beta,
             alpha,
+            self.filter_type,
             gamma,
             lambda_,
             delta,

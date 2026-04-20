@@ -17,12 +17,13 @@ public:
       double beta,
       double sigma,
       double alpha,
+      int filter_type,
       double gamma,
       double lambda_cn,
       double delta,
       int moment,
       bool independent_noise = true) : Optimizer(bounds, "SMD-CBO"),
-                                       base_opt(bounds, n_particles, iter, dt, lambda, epsilon, beta, sigma, alpha, 0)
+                                       base_opt(bounds, n_particles, iter, dt, lambda, epsilon, beta, sigma, alpha, 0, filter_type)
   {
     this->gamma = gamma;
     this->lambda = lambda_cn;

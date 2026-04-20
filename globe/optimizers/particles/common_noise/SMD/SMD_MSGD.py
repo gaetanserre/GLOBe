@@ -20,6 +20,10 @@ class SMD_MSGD(SMD_Optimizer):
         The number of iterations.
     dt : float
         The time step.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     gamma : float
         The coefficient for the common noise.
     ``lambda_`` : float
@@ -38,13 +42,14 @@ class SMD_MSGD(SMD_Optimizer):
         n_particles=200,
         iter=100,
         dt=0.1,
+        filter_type=None,
         gamma=1,
         lambda_=1e-10,
         delta=2.1,
         moment="M1",
         verbose=False,
     ):
-        super().__init__("MSGD", bounds, moment, verbose)
+        super().__init__("MSGD", bounds, moment, filter_type, verbose)
 
         self.c_opt = CSMD_Langevin(
             bounds, n_particles, iter, dt, 0, gamma, lambda_, delta, self.moment, False

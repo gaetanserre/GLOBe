@@ -16,7 +16,8 @@ public:
       double dt,
       double beta,
       double alpha,
-      int batch_size) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), "PSO")
+      int batch_size,
+      int filter_type) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), filter_type, "PSO")
   {
     this->beta = beta;
     this->velocities = Eigen::MatrixXd::Zero(n_particles, bounds.size());

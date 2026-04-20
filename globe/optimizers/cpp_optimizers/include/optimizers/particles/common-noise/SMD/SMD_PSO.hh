@@ -14,11 +14,12 @@ public:
       double dt,
       double beta,
       double alpha,
+      int filter_type,
       double gamma,
       double lambda_cn,
       double delta,
       int moment) : Optimizer(bounds, "SMD-PSO"),
-                    base_opt(bounds, n_particles, iter, dt, beta, alpha, 0)
+                    base_opt(bounds, n_particles, iter, dt, beta, alpha, 0, filter_type)
   {
     this->gamma = gamma;
     this->lambda = lambda_cn;

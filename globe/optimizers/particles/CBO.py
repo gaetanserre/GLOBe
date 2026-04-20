@@ -2,13 +2,13 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from ..cpp_optimizer import CPP_Optimizer
+from .particles_optimizer import Particles_Optimizer
 from ..cpp_optimizers import CBO as C_CBO
 
 
-class CBO(CPP_Optimizer):
+class CBO(Particles_Optimizer):
     """
-    Interface for the CBO optimizer.
+    Interface for the CBO optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -33,6 +33,10 @@ class CBO(CPP_Optimizer):
     batch_size : int
         The batch size for the mini-batch optimization. If 0, no mini-batch
         optimization is used.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     verbose : bool
         Whether to print information about the optimization process.
     """
@@ -49,9 +53,10 @@ class CBO(CPP_Optimizer):
         sigma=5.1,
         alpha=1,
         batch_size=0,
+        filter_type=None,
         verbose=False,
     ):
-        super().__init__("CBO", bounds, verbose)
+        super().__init__("CBO", bounds, filter_type=filter_type, verbose=verbose)
         self.c_opt = C_CBO(
             bounds,
             n_particles,
@@ -63,4 +68,5 @@ class CBO(CPP_Optimizer):
             sigma,
             alpha,
             batch_size,
+            self.filter_type,
         )

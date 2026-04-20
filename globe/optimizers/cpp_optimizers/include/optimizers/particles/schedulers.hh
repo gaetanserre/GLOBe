@@ -13,7 +13,7 @@ public:
 
   virtual ~Scheduler() = default;
 
-  virtual void step(Eigen::MatrixXd *param, Eigen::MatrixXd grad, const int &time) { printf("Base sched\n"); }
+  virtual void step(Eigen::MatrixXd *param, Eigen::MatrixXd grad, const int &time) = 0;
 
   virtual void reset() {}
 

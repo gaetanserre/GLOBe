@@ -13,11 +13,12 @@ public:
       int iter,
       double dt,
       double sigma,
+      int filter_type,
       double gamma,
       double lambda,
       double delta,
       int moment) : Optimizer(bounds, "SMD-SBS"),
-                    base_opt(bounds, n_particles, iter, dt, sigma, 0)
+                    base_opt(bounds, n_particles, iter, dt, sigma, 0, filter_type)
   {
     this->gamma = gamma;
     this->lambda = lambda;

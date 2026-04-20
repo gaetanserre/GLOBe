@@ -19,7 +19,8 @@ public:
       double beta,
       double sigma,
       double alpha,
-      int batch_size) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), "CBO")
+      int batch_size,
+      int filter_type) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), filter_type, "CBO")
   {
     this->lambda = lambda;
     this->epsilon = epsilon;
