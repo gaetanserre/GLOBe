@@ -52,5 +52,15 @@ class SMD_MSGD(SMD_Optimizer):
         super().__init__("MSGD", bounds, moment, filter_type, verbose)
 
         self.c_opt = CSMD_Langevin(
-            bounds, n_particles, iter, dt, 0, gamma, lambda_, delta, self.moment, False
+            bounds,
+            n_particles,
+            iter,
+            dt,
+            0,
+            self.filter_type,
+            gamma,
+            lambda_,
+            delta,
+            self.moment,
+            False,
         )
