@@ -51,14 +51,14 @@ result_eigen Particles_Optimizer::minimize(function<double(dyn_vector)> f)
   {
     if (this->batch_size > 0)
     {
-      if (this->n_particles < this->batch_size)
+      if (particles.rows() < this->batch_size)
       {
-        string msg = "Batch size (" + to_string(this->batch_size) + ") cannot be larger than the number of particles (" + to_string(this->n_particles) + ").";
+        string msg = "Batch size (" + to_string(this->batch_size) + ") cannot be larger than the number of particles (" + to_string(particles.rows()) + ").";
         throw runtime_error(msg);
       }
-      if (this->n_particles % this->batch_size != 0)
+      if (particles.rows() % this->batch_size != 0)
       {
-        string msg = "Number of particles (" + to_string(this->n_particles) + ") must be a multiple of the batch size (" + to_string(this->batch_size) + ").";
+        string msg = "Number of particles (" + to_string(particles.rows()) + ") must be a multiple of the batch size (" + to_string(this->batch_size) + ").";
         throw runtime_error(msg);
       }
 
