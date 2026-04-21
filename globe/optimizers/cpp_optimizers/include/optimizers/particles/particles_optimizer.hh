@@ -6,6 +6,13 @@
 
 #include "optimizers/optimizer.hh"
 #include "optimizers/particles/schedulers.hh"
+#include "optimizers/particles/filtering/filtering.hh"
+
+enum FilterType
+{
+  NONE = 0,
+  QUANTILE = 1
+};
 
 struct dynamic
 {
@@ -22,12 +29,17 @@ public:
       int iter,
       int batch_size,
       Scheduler *sched,
+      int filter_type = FilterType::NONE,
       std::string name = "Particles Optimizer") : Optimizer(bounds, name)
   {
     this->n_particles = n_particles;
     this->iter = iter;
     this->batch_size = batch_size;
     this->sched = sched;
+    if (filter_type == FilterType::QUANTILE)
+    {
+      this->filter = new QuantileFilter();
+    }
   }
 
   ~Particles_Optimizer()
@@ -41,6 +53,7 @@ public:
   int iter;
   int batch_size;
   Scheduler *sched;
+  Filter *filter = nullptr;
 
 private:
   void update_particles(Eigen::MatrixXd *particles, function<double(dyn_vector x)> f, vector<double> *all_evals, vector<dyn_vector> *samples, int &t);

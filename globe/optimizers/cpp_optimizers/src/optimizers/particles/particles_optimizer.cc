@@ -6,6 +6,12 @@
 
 void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<double(dyn_vector x)> f, vector<double> *all_evals, vector<dyn_vector> *samples, int &t)
 {
+  Eigen::MatrixXd *particles_old_ptr;
+  if (this->filter != nullptr)
+  {
+    particles_old_ptr = new Eigen::MatrixXd(*particles);
+  }
+
   vector<double> evals((*particles).rows());
   for (int i = 0; i < particles->rows(); i++)
   {
@@ -25,6 +31,10 @@ void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<
     particles->row(j) += sqrt(dt) * dyn.noise.row(j);
     particles->row(j) = clip_vector(particles->row(j), this->bounds);
   }
+  if (this->filter != nullptr)
+  {
+    this->filter->step(particles_old_ptr, particles);
+  }
 }
 
 result_eigen Particles_Optimizer::minimize(function<double(dyn_vector)> f)
@@ -41,14 +51,14 @@ result_eigen Particles_Optimizer::minimize(function<double(dyn_vector)> f)
   {
     if (this->batch_size > 0)
     {
-      if (this->n_particles < this->batch_size)
+      if (particles.rows() < this->batch_size)
       {
-        string msg = "Batch size (" + to_string(this->batch_size) + ") cannot be larger than the number of particles (" + to_string(this->n_particles) + ").";
+        string msg = "Batch size (" + to_string(this->batch_size) + ") cannot be larger than the number of particles (" + to_string(particles.rows()) + ").";
         throw runtime_error(msg);
       }
-      if (this->n_particles % this->batch_size != 0)
+      if (particles.rows() % this->batch_size != 0)
       {
-        string msg = "Number of particles (" + to_string(this->n_particles) + ") must be a multiple of the batch size (" + to_string(this->batch_size) + ").";
+        string msg = "Number of particles (" + to_string(particles.rows()) + ") must be a multiple of the batch size (" + to_string(this->batch_size) + ").";
         throw runtime_error(msg);
       }
 

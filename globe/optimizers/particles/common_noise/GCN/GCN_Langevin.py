@@ -2,13 +2,13 @@
 # Created in 2025 by Gaëtan Serré
 #
 
-from ....cpp_optimizer import CPP_Optimizer
+from ...particles_optimizer import Particles_Optimizer
 from ....cpp_optimizers import GCN_Langevin as CGCN_Langevin
 
 
-class GCN_Langevin(CPP_Optimizer):
+class GCN_Langevin(Particles_Optimizer):
     """
-    Interface for the Geometric Common Noise Langevin optimizer.
+    Interface for the Geometric Common Noise Langevin optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -22,6 +22,10 @@ class GCN_Langevin(CPP_Optimizer):
         The time step.
     beta : float
         The inverse temperature.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     sigma_noise : float
         The kernel bandwidth for the common noise.
     independent_noise : bool
@@ -37,12 +41,22 @@ class GCN_Langevin(CPP_Optimizer):
         iter=100,
         dt=0.1,
         beta=1,
+        filter_type=None,
         sigma_noise=1,
         independent_noise=True,
         verbose=False,
     ):
-        super().__init__("GCN-Langevin", bounds, verbose)
+        super().__init__(
+            "GCN-Langevin", bounds, filter_type=filter_type, verbose=verbose
+        )
 
         self.c_opt = CGCN_Langevin(
-            bounds, n_particles, iter, dt, beta, sigma_noise, independent_noise
+            bounds,
+            n_particles,
+            iter,
+            dt,
+            beta,
+            self.filter_type,
+            sigma_noise,
+            independent_noise,
         )

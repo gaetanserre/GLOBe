@@ -13,8 +13,9 @@ public:
       int iter,
       double dt,
       double sigma,
+      int filter_type,
       double sigma_cn) : Optimizer(bounds, "GCN-SBS"),
-                         base_opt(bounds, n_particles, iter, dt, sigma, 0)
+                         base_opt(bounds, n_particles, iter, dt, sigma, 0, filter_type)
   {
     this->sigma = sigma_cn;
   }

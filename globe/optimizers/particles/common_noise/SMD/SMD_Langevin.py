@@ -8,7 +8,7 @@ from ....cpp_optimizers import SMD_Langevin as CSMD_Langevin
 
 class SMD_Langevin(SMD_Optimizer):
     """
-    Interface for the Stochastic Moment Dynamics Langevin optimizer.
+    Interface for the Stochastic Moment Dynamics Langevin optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -22,6 +22,10 @@ class SMD_Langevin(SMD_Optimizer):
         The time step.
     beta : float
         The inverse temperature.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     gamma : float
         The coefficient for the common noise.
     ``lambda_`` : float
@@ -43,6 +47,7 @@ class SMD_Langevin(SMD_Optimizer):
         iter=100,
         dt=0.1,
         beta=1,
+        filter_type=None,
         gamma=1,
         lambda_=1e-10,
         delta=2.1,
@@ -50,7 +55,9 @@ class SMD_Langevin(SMD_Optimizer):
         independent_noise=True,
         verbose=False,
     ):
-        super().__init__("Langevin", bounds, moment, verbose)
+        super().__init__(
+            "Langevin", bounds, moment, filter_type=filter_type, verbose=verbose
+        )
 
         self.c_opt = CSMD_Langevin(
             bounds,
@@ -58,6 +65,7 @@ class SMD_Langevin(SMD_Optimizer):
             iter,
             dt,
             beta,
+            self.filter_type,
             gamma,
             lambda_,
             delta,

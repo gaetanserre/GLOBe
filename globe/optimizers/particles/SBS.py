@@ -2,13 +2,13 @@
 # Created in 2024 by Gaëtan Serré
 #
 
-from ..cpp_optimizer import CPP_Optimizer
+from .particles_optimizer import Particles_Optimizer
 from ..cpp_optimizers import SBS as C_SBS
 
 
-class SBS(CPP_Optimizer):
+class SBS(Particles_Optimizer):
     """
-    Interface for the SBS optimizer.
+    Interface for the SBS optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -25,6 +25,10 @@ class SBS(CPP_Optimizer):
     batch_size : int
         The batch size for the mini-batch optimization. If 0, no mini-batch
         optimization is used.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     verbose : bool
         Whether to print information about the optimization process.
     """
@@ -37,7 +41,10 @@ class SBS(CPP_Optimizer):
         dt=0.1,
         sigma=0.1,
         batch_size=0,
+        filter_type=None,
         verbose=False,
     ):
-        super().__init__("SBS", bounds, verbose)
-        self.c_opt = C_SBS(bounds, n_particles, iter, dt, sigma, batch_size)
+        super().__init__("SBS", bounds, filter_type=filter_type, verbose=verbose)
+        self.c_opt = C_SBS(
+            bounds, n_particles, iter, dt, sigma, batch_size, self.filter_type
+        )

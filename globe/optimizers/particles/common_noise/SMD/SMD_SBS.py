@@ -8,7 +8,7 @@ from ....cpp_optimizers import SMD_SBS as CSMD_SBS
 
 class SMD_SBS(SMD_Optimizer):
     """
-    Interface for the Stochastic Moment Dynamics SBS optimizer.
+    Interface for the Stochastic Moment Dynamics SBS optimizer with optional particle filtering.
 
     Parameters
     ----------
@@ -22,6 +22,10 @@ class SMD_SBS(SMD_Optimizer):
         The time step.
     sigma : float
         The kernel bandwidth.
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     gamma : float
         The coefficient for the common noise.
     ``lambda_`` : float
@@ -41,14 +45,26 @@ class SMD_SBS(SMD_Optimizer):
         iter=100,
         dt=0.1,
         sigma=0.1,
+        filter_type=None,
         gamma=1,
         lambda_=1e-10,
         delta=2.1,
         moment="M1",
         verbose=False,
     ):
-        super().__init__("SBS", bounds, moment, verbose)
+        super().__init__(
+            "SBS", bounds, moment, filter_type=filter_type, verbose=verbose
+        )
 
         self.c_opt = CSMD_SBS(
-            bounds, n_particles, iter, dt, sigma, gamma, lambda_, delta, self.moment
+            bounds,
+            n_particles,
+            iter,
+            dt,
+            sigma,
+            self.filter_type,
+            gamma,
+            lambda_,
+            delta,
+            self.moment,
         )

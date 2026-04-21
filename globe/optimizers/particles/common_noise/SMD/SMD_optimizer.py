@@ -2,12 +2,15 @@
 # Created in 2025 by Gaëtan Serré
 #
 
-from ....cpp_optimizer import CPP_Optimizer
+from ...particles_optimizer import Particles_Optimizer
 
 
-class SMD_Optimizer(CPP_Optimizer):
+class SMD_Optimizer(Particles_Optimizer):
     """
-    Interface for Stochastic Moment Dynamics optimizers.
+    Interface for Stochastic Moment Dynamics optimizers with particle filtering.
+
+    This class extends Particles_Optimizer and handles the parsing of both
+    filter_type and moment parameters specific to SMD algorithms.
 
     Parameters
     ----------
@@ -17,11 +20,15 @@ class SMD_Optimizer(CPP_Optimizer):
         The bounds of the search space.
     moment : str, optional
         The moment to use for the common noise. Can be "M1", "M2", "VAR", "MVAR".
+    filter_type : str or None, optional
+        The type of filter to apply to particles:
+        - None: No filtering (default)
+        - "quantile": Filters out particles judged as non-relevant based on quantile
     verbose : bool, optional
         Whether to print information about the optimization process.
     """
 
-    def __init__(self, name, bounds, moment, verbose=False):
+    def __init__(self, name, bounds, moment, filter_type=None, verbose=False):
 
         match moment:
             case "M1":
@@ -37,4 +44,6 @@ class SMD_Optimizer(CPP_Optimizer):
                     'Invalid moment type. Choose from "M1", "M2", "VAR", or "MVAR".'
                 )
 
-        super().__init__("SMD-" + name, bounds, verbose)
+        super().__init__(
+            "SMD-" + name, bounds, filter_type=filter_type, verbose=verbose
+        )
