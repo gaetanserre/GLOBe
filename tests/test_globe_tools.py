@@ -1,7 +1,3 @@
-#
-# Created in 2024 by Gaëtan Serré
-#
-
 from globe import GLOBe
 from globe.benchmarks import PyGKLS, create_bounds, augment_dimensions
 import inspect
