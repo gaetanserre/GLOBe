@@ -174,7 +174,7 @@ def print_table_by_metric_latex(res_dict, reference_optimizer=None):
                             count_best = sum(1 for m in means if m == best_mean)
                             if count_best > 1:
                                 significancy = True
-                                p_values[benchmark_name] = str("$0.000$")
+                                p_values[benchmark_name] = "$< 0.05$"
                             elif (
                                 reference_optimizer is None
                                 or name_opt == reference_optimizer
@@ -182,14 +182,18 @@ def print_table_by_metric_latex(res_dict, reference_optimizer=None):
                                 significancy, p_val = _significancy_against_all(
                                     res_dict[benchmark_name], name_opt
                                 )
-                                p_values[benchmark_name] = f"${p_val:.3f}$"
+                                p_values[benchmark_name] = (
+                                    "$< 0.05$" if p_val < 0.05 else f"${p_val:.3f}$"
+                                )
                             else:
                                 significancy, p_val = _significancy_against_reference(
                                     res_dict[benchmark_name],
                                     name_opt,
                                     reference_optimizer,
                                 )
-                                p_values[benchmark_name] = f"${p_val:.3f}$"
+                                p_values[benchmark_name] = (
+                                    "$< 0.05$" if p_val < 0.05 else f"${p_val:.3f}$"
+                                )
                         if significancy:
                             color = r"\cellcolor{cell-gray}"
                             mean = f"{color} {mean}"
