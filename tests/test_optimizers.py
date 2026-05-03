@@ -1,7 +1,10 @@
+#
+# Created in 2024 by Gaëtan Serré
+#
+
 from globe.benchmarks import *
 import globe.optimizers as go
 import inspect
-
 
 pygkls = PyGKLS(2, 15, [-100, 100], -100, smoothness="ND", gen=42)
 
