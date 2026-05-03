@@ -14,10 +14,3 @@
 
   [], image("Styblinskitang.svg") + align(center, [Styblinski-Tang]), [],
 )
-
-#v(1em)
-
-#align(center, text(
-  size: 15pt,
-  [*Figure.* Visualization of the 2D landscapes of the multimodal functions used in our experiments.],
-))

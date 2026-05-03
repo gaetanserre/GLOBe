@@ -1,16 +1,14 @@
-#set page(width: 40cm, height: 50cm)
+#set page(width: auto, height: auto)
 
 #set par(justify: true)
 
-#set text(font: "New Computer Modern", size: 12pt)
+#set text(font: "New Computer Modern", size: 20pt)
 
 #let opt = [Langevin]
 #let smd_opt = [SMD-#opt]
 #let gcn_opt = [GCN-#opt]
 
 #let legend(it) = align(center, it) + v(-0.5em)
-
-#v(-5em)
 
 #grid(
   columns: 3,
@@ -29,10 +27,13 @@
   legend([Visited space by #gcn_opt]) + image("exploration_visited_gcn_opt.svg"),
 )
 
-#legend([Cumulative search space coverage (\%)])
-#image("exploration_coverage.svg")
+#align(center, [
+  #legend([Cumulative search space coverage (\%)])
+  #image("exploration_coverage.svg")
+])
 
-#v(1em)
+
+/* #v(1em)
 
 #align(center, text(
   size: 15pt,
@@ -43,3 +44,4 @@
       One can see that, not only the SMD and GCN variants of #opt end up with a better concentration of particles around the global minimum, but they also explore more of the search space, as shown by the last row. This suggests that the SMD and GCN variants are able to escape local minima and explore more effectively the search space, leading to better optimization performance.],
   ),
 ))
+ */
