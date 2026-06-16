@@ -66,13 +66,13 @@ class OptBuild(build_ext):
 
     def build_cma(self):
         if platform.system() == "Windows":
-            return 'cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF -G "Visual Studio 17 2022" -A x64 .. && cmake --build . --config Release'
+            return 'cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF -G "Visual Studio 18 2026" -A x64 .. && cmake --build . --config Release'
         else:
             return "cmake -DLIBCMAES_BUILD_EXAMPLES=OFF -DLIBCMAES_BUILD_SHARED_LIBS=OFF .. && make -j"
 
     def build_globe(self, lib_name, pkg_name):
         if platform.system() == "Windows":
-            return f'cmake -DPython_EXECUTABLE={sys.executable} -DNUMPY_INCLUDE_DIRS={np.get_include()} -DEXT_NAME={lib_name} -DCYTHON_CPP_FILE={pkg_name}.cc .. -G "Visual Studio 17 2022" -A x64 && cmake --build . --config Release'
+            return f'cmake -DPython_EXECUTABLE={sys.executable} -DNUMPY_INCLUDE_DIRS={np.get_include()} -DEXT_NAME={lib_name} -DCYTHON_CPP_FILE={pkg_name}.cc .. -G "Visual Studio 18 2026" -A x64 && cmake --build . --config Release'
         else:
             return f"cmake -DPython_EXECUTABLE={sys.executable} -DNUMPY_INCLUDE_DIRS={np.get_include()} -DEXT_NAME={lib_name} -DCYTHON_CPP_FILE={pkg_name}.cc .. && make -j"
 
