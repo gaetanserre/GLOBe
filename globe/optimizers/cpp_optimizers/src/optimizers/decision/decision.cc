@@ -36,12 +36,14 @@ result_eigen Decision::minimize(function<double(dyn_vector)> f)
     {
       dyn_vector x = unif_random_vector(this->re, this->bounds);
       count++;
-      if (this->use_trust_regions)
+      if (count >= this->max_trials)
       {
-        if (check_in_ball(cTree, x, this->trust_region_radius))
-        {
-          continue;
-        }
+        result_eigen best = samples.back();
+        return {best.first, -best.second};
+      }
+      if (this->use_trust_regions && check_in_ball(cTree, x, this->trust_region_radius))
+      {
+        continue;
       }
 
       if ((*this->decision)(samples, x, this->data, this->functions))
@@ -64,12 +66,6 @@ result_eigen Decision::minimize(function<double(dyn_vector)> f)
         }
         sort(samples.begin(), samples.end(), compare_pair);
         break;
-      }
-
-      if (count >= this->max_trials)
-      {
-        result_eigen best = samples.back();
-        return {best.first, -best.second};
       }
     }
 
