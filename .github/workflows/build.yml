@@ -89,7 +89,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       
       - name: Chocolatey install Eigen
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: install eigen -y
 
