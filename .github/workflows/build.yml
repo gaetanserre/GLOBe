@@ -28,7 +28,7 @@ jobs:
           python -m build --sdist
 
       - name: Place dist in artifacts folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sdist
           path: ./dist/*.tar.gz
@@ -65,7 +65,7 @@ jobs:
           ls -R dist
 
       - name: Place wheels in artifacts folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }}
           path: ./dist/*
@@ -100,7 +100,7 @@ jobs:
           ls ./dist
 
       - name: Place wheels in artifacts folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.python-version }}
           path: ./dist/*.whl
