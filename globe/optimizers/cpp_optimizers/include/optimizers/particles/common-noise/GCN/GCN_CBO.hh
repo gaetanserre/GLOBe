@@ -18,9 +18,11 @@ public:
       double sigma,
       double alpha,
       int filter_type,
+      int warmup_type,
+      int warmup_iter,
       double sigma_cn,
       bool independent_noise = true) : Optimizer(bounds, "GCN-CBO"),
-                                       base_opt(bounds, n_particles, iter, dt, lambda, epsilon, beta, sigma, alpha, 0, filter_type)
+                                       base_opt(bounds, n_particles, iter, dt, lambda, epsilon, beta, sigma, alpha, 0, filter_type, warmup_type, warmup_iter)
   {
     this->sigma = sigma_cn;
     this->independent_noise = independent_noise;

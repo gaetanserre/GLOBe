@@ -3,6 +3,7 @@
  */
 
 #include "optimizers/particles/particles_optimizer.hh"
+#include "optimizers/CMA_ES.hh"
 
 void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<double(dyn_vector x)> f, vector<double> *all_evals, vector<dyn_vector> *samples, int &t)
 {
@@ -37,15 +38,42 @@ void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<
   }
 }
 
+void init_particles(int n_particles, vec_bounds bounds, function<double(dyn_vector)> f,
+                    Eigen::MatrixXd *particles)
+{
+  vector<double> m0(0);
+  CMA_ES cma_es(bounds, 1000, m0, 1);
+  pair<CMASolutions, GenoPheno<pwqBoundStrategy>> sols_gp = cma_es.get_sols(f);
+  CMASolutions cmasols = sols_gp.first;
+  GenoPheno<pwqBoundStrategy> gp = sols_gp.second;
+
+  std::vector<Candidate> &cands = cmasols.candidates();
+
+  for (int i = 0; i < cmasols.size(); i++)
+  {
+    Candidate &c = cands[i];
+
+    Eigen::VectorXd x_pheno = gp.pheno(c.get_x_dvec());
+    particles->row(i) = x_pheno.transpose();
+  }
+}
+
 result_eigen Particles_Optimizer::minimize(function<double(dyn_vector)> f)
 {
   vector<double> all_evals;
   vector<dyn_vector> samples;
   Eigen::MatrixXd particles(this->n_particles, this->bounds.size());
 
-  for (int i = 0; i < this->n_particles; i++)
+  if (this->warmup_type == WarmUpType::CMAES && this->warmup_iter > 0)
   {
-    particles.row(i) = unif_random_vector(this->re, this->bounds);
+    init_particles(this->warmup_iter, this->bounds, f, &particles);
+  }
+  else
+  {
+    for (int i = 0; i < this->n_particles; i++)
+    {
+      particles.row(i) = unif_random_vector(this->re, this->bounds);
+    }
   }
   for (int i = 0; i < this->iter; i++)
   {

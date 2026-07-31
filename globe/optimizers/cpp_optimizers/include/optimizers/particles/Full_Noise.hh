@@ -14,7 +14,9 @@ public:
       double dt,
       double alpha,
       int batch_size,
-      int filter_type) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), filter_type, "Full-Noise") {}
+      int filter_type,
+      int warmup_type,
+      int warmup_iter) : Particles_Optimizer(bounds, n_particles, iter, batch_size, new LinearScheduler(dt, alpha), filter_type, warmup_type, warmup_iter, "Full-Noise") {}
 
   virtual dynamic compute_dynamics(const Eigen::MatrixXd &particles, const function<double(dyn_vector x)> &f, vector<double> *evals, const int &time);
 };
