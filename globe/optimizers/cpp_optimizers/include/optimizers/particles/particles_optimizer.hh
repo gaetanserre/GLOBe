@@ -14,6 +14,12 @@ enum FilterType
   QUANTILE = 1
 };
 
+enum WarmUpType
+{
+  UNIFORM = 0,
+  CMAES = 1
+};
+
 struct dynamic
 {
   Eigen::MatrixXd drift;
@@ -30,6 +36,8 @@ public:
       int batch_size,
       Scheduler *sched,
       int filter_type = FilterType::NONE,
+      int warmup_type = WarmUpType::UNIFORM,
+      int warmup_iter = 0,
       std::string name = "Particles Optimizer") : Optimizer(bounds, name)
   {
     this->n_particles = n_particles;
@@ -40,6 +48,8 @@ public:
     {
       this->filter = new QuantileFilter();
     }
+    this->warmup_type = warmup_type;
+    this->warmup_iter = warmup_iter;
   }
 
   ~Particles_Optimizer()
@@ -54,6 +64,8 @@ public:
   int batch_size;
   Scheduler *sched;
   Filter *filter = nullptr;
+  int warmup_type;
+  int warmup_iter;
 
 private:
   void update_particles(Eigen::MatrixXd *particles, function<double(dyn_vector x)> f, vector<double> *all_evals, vector<dyn_vector> *samples, int &t);

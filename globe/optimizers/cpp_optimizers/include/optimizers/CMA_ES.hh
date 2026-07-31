@@ -3,6 +3,9 @@
  */
 
 #include "optimizers/optimizer.hh"
+#include "libcmaes/cmaes.h"
+
+using namespace libcmaes;
 
 class CMA_ES : public Optimizer
 {
@@ -26,6 +29,7 @@ public:
     delete[] ubounds;
   }
 
+  virtual pair<CMASolutions, GenoPheno<pwqBoundStrategy>> get_sols(function<double(dyn_vector)> f);
   virtual result_eigen minimize(function<double(dyn_vector)> f);
 
 private:

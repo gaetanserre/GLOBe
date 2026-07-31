@@ -28,7 +28,15 @@ class SMD_Optimizer(Particles_Optimizer):
         Whether to print information about the optimization process.
     """
 
-    def __init__(self, name, bounds, moment, filter_type=None, verbose=False):
+    def __init__(
+        self,
+        name,
+        bounds,
+        moment,
+        filter_type=None,
+        verbose=False,
+        warmup_type=None,
+    ):
 
         match moment:
             case "M1":
@@ -45,5 +53,9 @@ class SMD_Optimizer(Particles_Optimizer):
                 )
 
         super().__init__(
-            "SMD-" + name, bounds, filter_type=filter_type, verbose=verbose
+            "SMD-" + name,
+            bounds,
+            filter_type=filter_type,
+            warmup_type=warmup_type,
+            verbose=verbose,
         )

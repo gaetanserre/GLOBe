@@ -3,7 +3,7 @@
  */
 
 #include "optimizers/CMA_ES.hh"
-#include "libcmaes/cmaes.h"
+
 using namespace libcmaes;
 
 void CMA_ES::transform_bounds(vec_bounds bounds)
@@ -18,7 +18,7 @@ void CMA_ES::transform_bounds(vec_bounds bounds)
   }
 }
 
-result_eigen CMA_ES::minimize(function<double(dyn_vector)> f)
+pair<CMASolutions, GenoPheno<pwqBoundStrategy>> CMA_ES::get_sols(function<double(dyn_vector)> f)
 {
   if (this->m0.size() == 0)
   {
@@ -43,8 +43,15 @@ result_eigen CMA_ES::minimize(function<double(dyn_vector)> f)
     dyn_vector xvec = dyn_vector::Map(x, N);
     return f(xvec);
   };
-
   CMASolutions cmasols = cmaes<GenoPheno<pwqBoundStrategy>>(f_, cmaparams);
+  return {cmasols, gp};
+}
+
+result_eigen CMA_ES::minimize(function<double(dyn_vector)> f)
+{
+  pair<CMASolutions, GenoPheno<pwqBoundStrategy>> sols_gp = get_sols(f);
+  CMASolutions cmasols = sols_gp.first;
+  GenoPheno<pwqBoundStrategy> gp = sols_gp.second;
   dyn_vector best_x = gp.pheno(cmasols.get_best_seen_candidate().get_x_dvec());
   double best_f = cmasols.get_best_seen_candidate().get_fvalue();
 

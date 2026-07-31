@@ -28,6 +28,12 @@ class SMD_PSO(SMD_Optimizer):
         The type of filter to apply to particles:
         - None: No filtering (default)
         - "quantile": Filters out particles judged as non-relevant based on quantile
+    warmup_type : str or None, optional
+        The type of warmup to apply to particles:
+        - None: No warmup (default)
+        - "CMA-ES": Uses CMA-ES to warm up the particles
+    warmup_iter : int, optional
+        The number of warmup iterations. Default is 0.
     gamma : float
         The coefficient for the common noise.
     ``lambda_`` : float
@@ -54,9 +60,16 @@ class SMD_PSO(SMD_Optimizer):
         moment="M1",
         filter_type=None,
         verbose=False,
+        warmup_type=None,
+        warmup_iter=0,
     ):
         super().__init__(
-            "PSO", bounds, moment, filter_type=filter_type, verbose=verbose
+            "PSO",
+            bounds,
+            moment,
+            filter_type=filter_type,
+            warmup_type=warmup_type,
+            verbose=verbose,
         )
 
         self.c_opt = CSMD_PSO(
@@ -67,6 +80,8 @@ class SMD_PSO(SMD_Optimizer):
             beta,
             alpha,
             self.filter_type,
+            self.warmup_type,
+            warmup_iter,
             gamma,
             lambda_,
             delta,

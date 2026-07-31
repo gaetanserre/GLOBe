@@ -14,9 +14,11 @@ public:
       double dt,
       double beta,
       int filter_type,
+      int warmup_type,
+      int warmup_iter,
       double sigma_cn,
       bool independent_noise = true) : Optimizer(bounds, "GCN-Langevin"),
-                                       base_opt(bounds, n_particles, iter, dt, beta, 0, filter_type)
+                                       base_opt(bounds, n_particles, iter, dt, beta, 0, filter_type, warmup_type, warmup_iter)
   {
     this->sigma = sigma_cn;
     this->independent_noise = independent_noise;

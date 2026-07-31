@@ -14,12 +14,14 @@ public:
       double dt,
       double beta,
       int filter_type,
+      int warmup_type,
+      int warmup_iter,
       double gamma,
       double lambda,
       double delta,
       int moment,
       bool independent_noise = true) : Optimizer(bounds, "SMD-Langevin"),
-                                       base_opt(bounds, n_particles, iter, dt, beta, 0, filter_type)
+                                       base_opt(bounds, n_particles, iter, dt, beta, 0, filter_type, warmup_type, warmup_iter)
   {
     this->gamma = gamma;
     this->lambda = lambda;

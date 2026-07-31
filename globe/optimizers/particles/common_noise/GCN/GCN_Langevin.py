@@ -26,6 +26,12 @@ class GCN_Langevin(Particles_Optimizer):
         The type of filter to apply to particles:
         - None: No filtering (default)
         - "quantile": Filters out particles judged as non-relevant based on quantile
+    warmup_type : str or None, optional
+        The type of warmup to apply to particles:
+        - None: No warmup (default)
+        - "CMA-ES": Uses CMA-ES to warm up the particles
+    warmup_iter : int, optional
+        The number of warmup iterations. Default is 0.
     sigma_noise : float
         The kernel bandwidth for the common noise.
     independent_noise : bool
@@ -45,9 +51,15 @@ class GCN_Langevin(Particles_Optimizer):
         sigma_noise=1,
         independent_noise=True,
         verbose=False,
+        warmup_type=None,
+        warmup_iter=0,
     ):
         super().__init__(
-            "GCN-Langevin", bounds, filter_type=filter_type, verbose=verbose
+            "GCN-Langevin",
+            bounds,
+            filter_type=filter_type,
+            warmup_type=warmup_type,
+            verbose=verbose,
         )
 
         self.c_opt = CGCN_Langevin(
@@ -57,6 +69,8 @@ class GCN_Langevin(Particles_Optimizer):
             dt,
             beta,
             self.filter_type,
+            self.warmup_type,
+            warmup_iter,
             sigma_noise,
             independent_noise,
         )

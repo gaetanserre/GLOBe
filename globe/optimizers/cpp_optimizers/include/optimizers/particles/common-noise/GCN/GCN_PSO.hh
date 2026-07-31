@@ -15,8 +15,10 @@ public:
       double beta,
       double alpha,
       int filter_type,
+      int warmup_type,
+      int warmup_iter,
       double sigma_cn) : Optimizer(bounds, "GCN-PSO"),
-                         base_opt(bounds, n_particles, iter, dt, beta, alpha, 0, filter_type)
+                         base_opt(bounds, n_particles, iter, dt, beta, alpha, 0, filter_type, warmup_type, warmup_iter)
   {
     this->sigma = sigma_cn;
   }

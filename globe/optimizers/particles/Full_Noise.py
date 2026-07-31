@@ -30,6 +30,12 @@ class Full_Noise(Particles_Optimizer):
         The type of filter to apply to particles:
         - None: No filtering (default)
         - "quantile": Filters out particles judged as non-relevant based on quantile
+    warmup_type : str or None, optional
+        The type of warmup to apply to particles:
+        - None: No warmup (default)
+        - "CMA-ES": Uses CMA-ES to warm up the particles
+    warmup_iter : int, optional
+        The number of warmup iterations. Default is 0.
     verbose : bool
         Whether to print information about the optimization process.
     """
@@ -44,10 +50,26 @@ class Full_Noise(Particles_Optimizer):
         batch_size=0,
         filter_type=None,
         verbose=False,
+        warmup_type=None,
+        warmup_iter=0,
     ):
-        super().__init__("Full-Noise", bounds, filter_type=filter_type, verbose=verbose)
+        super().__init__(
+            "Full-Noise",
+            bounds,
+            filter_type=filter_type,
+            warmup_type=warmup_type,
+            verbose=verbose,
+        )
         self.c_opt = C_Full_Noise(
-            bounds, n_particles, iter, dt, alpha, batch_size, self.filter_type
+            bounds,
+            n_particles,
+            iter,
+            dt,
+            alpha,
+            batch_size,
+            self.filter_type,
+            self.warmup_type,
+            warmup_iter,
         )
 
     def minimize(self, f):
