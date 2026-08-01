@@ -111,7 +111,7 @@ jobs:
     needs: [ build_dist, build_wheels_unix, build_wheels_windows ]
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: dist
 
