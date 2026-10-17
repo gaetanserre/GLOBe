@@ -27,6 +27,8 @@ public:
       bool independent_noise = true) : Optimizer(bounds, "SMD-CBO"),
                                        base_opt(bounds, n_particles, iter, dt, lambda, epsilon, beta, sigma, alpha, 0, filter_type, warmup_type, warmup_iter)
   {
+    // The base optimizer draws all the random numbers, with the seed of this one
+    this->set_seed(this->seed);
     this->gamma = gamma;
     this->lambda = lambda_cn;
     this->delta = delta;
@@ -35,6 +37,7 @@ public:
   }
 
   virtual void set_stop_criterion(double stop_criterion);
+  virtual void set_seed(unsigned long long seed);
   virtual result_eigen minimize(function<double(dyn_vector)> f);
 
 private:

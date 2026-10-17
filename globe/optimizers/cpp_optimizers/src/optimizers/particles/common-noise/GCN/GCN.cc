@@ -21,7 +21,7 @@ Eigen::MatrixXd GCN::compute_noise(const Eigen::MatrixXd &particles)
   Eigen::MatrixXd K_sqrt = es.eigenvectors() * D.cwiseSqrt().asDiagonal() * es.eigenvectors().transpose();
   Eigen::MatrixXd K_sqrt_kron = Eigen::kroneckerProduct(K_sqrt, Eigen::MatrixXd::Identity(d, d));
 
-  dyn_vector alphas_tmp = K_sqrt_kron * normal_random_vector(this->re, K_sqrt_kron.rows(), 0, 1);
+  dyn_vector alphas_tmp = K_sqrt_kron * normal_random_vector(this->base_opt->re, K_sqrt_kron.rows(), 0, 1);
   Eigen::MatrixXd alphas = Eigen::Map<Eigen::MatrixXd>(alphas_tmp.data(), d, particles.rows()).transpose();
   return alphas;
 }

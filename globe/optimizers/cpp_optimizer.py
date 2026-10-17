@@ -33,5 +33,27 @@ class CPP_Optimizer(Optimizer):
     def set_stop_criterion(self, stop_criterion):
         self.c_opt.set_stop_criterion(stop_criterion)
 
+    def set_seed(self, seed):
+        """
+        Set the seed of the random number generator. By default, it comes from the clock.
+
+        Parameters
+        ----------
+        seed : int
+            The seed, a non-negative integer.
+        """
+        self.c_opt.set_seed(seed)
+
+    def get_seed(self):
+        """
+        Seed of the random number generator.
+
+        Returns
+        -------
+        int
+            The seed.
+        """
+        return self.c_opt.get_seed()
+
     def __del__(self):
         del self.c_opt

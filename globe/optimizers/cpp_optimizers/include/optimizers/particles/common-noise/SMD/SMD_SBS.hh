@@ -22,6 +22,8 @@ public:
       int moment) : Optimizer(bounds, "SMD-SBS"),
                     base_opt(bounds, n_particles, iter, dt, sigma, 0, filter_type, warmup_type, warmup_iter)
   {
+    // The base optimizer draws all the random numbers, with the seed of this one
+    this->set_seed(this->seed);
     this->gamma = gamma;
     this->lambda = lambda;
     this->delta = delta;
@@ -29,6 +31,7 @@ public:
   }
 
   virtual void set_stop_criterion(double stop_criterion);
+  virtual void set_seed(unsigned long long seed);
   virtual result_eigen minimize(function<double(dyn_vector)> f);
 
 private:

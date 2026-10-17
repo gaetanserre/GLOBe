@@ -34,7 +34,9 @@ class SBS(Particles_Optimizer):
         - None: No warmup (default)
         - "CMA-ES": Uses CMA-ES to warm up the particles
     warmup_iter : int, optional
-        The number of warmup iterations. Default is 0.
+        The number of CMA-ES iterations of the warmup. Each iteration evaluates
+        n_particles points, and the particles start from the last CMA-ES
+        population. Default is 0.
     verbose : bool
         Whether to print information about the optimization process.
     """

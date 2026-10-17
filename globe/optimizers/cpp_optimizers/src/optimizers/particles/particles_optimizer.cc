@@ -38,18 +38,22 @@ void Particles_Optimizer::update_particles(Eigen::MatrixXd *particles, function<
   }
 }
 
-void init_particles(int n_particles, vec_bounds bounds, function<double(dyn_vector)> f,
-                    Eigen::MatrixXd *particles)
+void init_particles(int warmup_iter, vec_bounds bounds, function<double(dyn_vector)> f,
+                    Eigen::MatrixXd *particles, mt19937_64 &re)
 {
+  int n_particles = particles->rows();
+  int lambda = max(n_particles, 2);
   vector<double> m0(0);
-  CMA_ES cma_es(bounds, 1000, m0, 1);
+  CMA_ES cma_es(bounds, warmup_iter * lambda, m0, 1, lambda);
+  // The seed of the warmup is drawn from the generator of the particle optimizer
+  cma_es.set_seed(re());
   pair<CMASolutions, GenoPheno<pwqBoundStrategy>> sols_gp = cma_es.get_sols(f);
   CMASolutions cmasols = sols_gp.first;
   GenoPheno<pwqBoundStrategy> gp = sols_gp.second;
 
   std::vector<Candidate> &cands = cmasols.candidates();
 
-  for (int i = 0; i < cmasols.size(); i++)
+  for (int i = 0; i < n_particles; i++)
   {
     Candidate &c = cands[i];
 
@@ -66,7 +70,7 @@ result_eigen Particles_Optimizer::minimize(function<double(dyn_vector)> f)
 
   if (this->warmup_type == WarmUpType::CMAES && this->warmup_iter > 0)
   {
-    init_particles(this->warmup_iter, this->bounds, f, &particles);
+    init_particles(this->warmup_iter, this->bounds, f, &particles, this->re);
   }
   else
   {
