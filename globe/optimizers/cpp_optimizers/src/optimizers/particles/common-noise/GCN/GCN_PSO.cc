@@ -12,6 +12,12 @@ void GCN_PSO::set_stop_criterion(double stop_criterion)
   this->base_opt.set_stop_criterion(stop_criterion);
 }
 
+void GCN_PSO::set_seed(unsigned long long seed)
+{
+  Optimizer::set_seed(seed);
+  this->base_opt.set_seed(seed);
+}
+
 result_eigen GCN_PSO::minimize(function<double(dyn_vector)> f)
 {
   GCN gcn(&this->base_opt, this->sigma, this->name, false);

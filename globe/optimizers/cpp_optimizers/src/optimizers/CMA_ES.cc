@@ -31,7 +31,10 @@ pair<CMASolutions, GenoPheno<pwqBoundStrategy>> CMA_ES::get_sols(function<double
   }
 
   GenoPheno<pwqBoundStrategy> gp(this->lbounds, this->ubounds, this->m0.size());
-  CMAParameters<GenoPheno<pwqBoundStrategy>> cmaparams(this->m0, this->sigma, -1, 0, gp);
+  // libcmaes samples with its own generator, whose seed is drawn from ours (0 would mean a seed
+  // from the clock)
+  uint64_t cma_seed = this->re();
+  CMAParameters<GenoPheno<pwqBoundStrategy>> cmaparams(this->m0, this->sigma, -1, cma_seed == 0 ? 1 : cma_seed, gp);
   if (this->has_stop_criterion)
   {
     cmaparams.set_ftarget(this->stop_criterion);

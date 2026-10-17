@@ -17,6 +17,8 @@ cdef extern from "include/optimizers/PRS.hh":
     CPRS(vector[vector[double]] bounds, int n_eval)
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/decision/AdaLIPO_P.hh":
   cdef cppclass CAdaLIPO_P "AdaLIPO_P":
@@ -29,12 +31,16 @@ cdef extern from "include/optimizers/decision/AdaLIPO_P.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/CMA_ES.hh":
   cdef cppclass CCMA_ES "CMA_ES":
     CCMA_ES(vector[vector[double]] bounds, int n_eval, vector[double] m0, double sigma)
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/SBS.hh":
   cdef cppclass CSBS "SBS":
@@ -51,6 +57,8 @@ cdef extern from "include/optimizers/particles/SBS.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/CBO.hh":
   cdef cppclass CCBO "CBO":
@@ -71,6 +79,8 @@ cdef extern from "include/optimizers/particles/CBO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/decision/AdaRankOpt.hh":
   cdef cppclass CAdaRankOpt "AdaRankOpt":
@@ -85,6 +95,8 @@ cdef extern from "include/optimizers/decision/AdaRankOpt.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/decision/ECP.hh":
   cdef cppclass CECP "ECP":
@@ -100,6 +112,8 @@ cdef extern from "include/optimizers/decision/ECP.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/PSO.hh":
   cdef cppclass CPSO "PSO":
@@ -117,6 +131,8 @@ cdef extern from "include/optimizers/particles/PSO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/Langevin.hh":
   cdef cppclass CLangevin "Langevin":
@@ -133,6 +149,8 @@ cdef extern from "include/optimizers/particles/Langevin.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_Langevin.hh":
   cdef cppclass CSMD_Langevin "SMD_Langevin":
@@ -153,6 +171,8 @@ cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_Langevin.hh"
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_SBS.hh":
   cdef cppclass CSMD_SBS "SMD_SBS":
@@ -172,6 +192,8 @@ cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_SBS.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_CBO.hh":
   cdef cppclass CSMD_CBO "SMD_CBO":
@@ -196,6 +218,8 @@ cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_CBO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_PSO.hh":
   cdef cppclass CSMD_PSO "SMD_PSO":
@@ -216,6 +240,8 @@ cdef extern from "include/optimizers/particles/common-noise/SMD/SMD_PSO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/Full_Noise.hh":
   cdef cppclass CFull_Noise "Full_Noise":
@@ -232,6 +258,8 @@ cdef extern from "include/optimizers/particles/Full_Noise.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_CBO.hh":
   cdef cppclass CGCN_CBO "GCN_CBO":
@@ -253,6 +281,8 @@ cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_CBO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_SBS.hh":
   cdef cppclass CGCN_SBS "GCN_SBS":
@@ -269,6 +299,8 @@ cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_SBS.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_Langevin.hh":
   cdef cppclass CGCN_Langevin "GCN_Langevin":
@@ -286,6 +318,8 @@ cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_Langevin.hh"
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_PSO.hh":
   cdef cppclass CGCN_PSO "GCN_PSO":
@@ -303,6 +337,8 @@ cdef extern from "include/optimizers/particles/common-noise/GCN/GCN_PSO.hh":
     )
     pair[vector[double], double] py_minimize(PyObject* f)
     void set_stop_criterion(double stop_criterion)
+    void set_seed(unsigned long long seed)
+    unsigned long long get_seed()
 
 # Python interface
 
@@ -319,6 +355,12 @@ cdef class PRS:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -348,6 +390,12 @@ cdef class AdaLIPO_P:
   
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -365,6 +413,12 @@ cdef class CMA_ES:
   
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -393,6 +447,12 @@ cdef class SBS:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -425,6 +485,12 @@ cdef class CBO:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -458,6 +524,12 @@ cdef class AdaRankOpt:
   
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
 
   def __del__(self):
     del self.thisptr
@@ -497,6 +569,12 @@ cdef class ECP:
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
 
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
+
   def __del__(self):
     del self.thisptr
 
@@ -528,6 +606,12 @@ cdef class PSO:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def minimize(self, f):
     py_init()
@@ -537,6 +621,12 @@ cdef class PSO:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -565,6 +655,12 @@ cdef class Langevin:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
   
   def __del__(self):
     del self.thisptr
@@ -598,6 +694,12 @@ cdef class SMD_Langevin:
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
 
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
+
 cdef class SMD_SBS:
   cdef CSMD_SBS *thisptr
   def __cinit__(
@@ -625,6 +727,12 @@ cdef class SMD_SBS:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
 
 cdef class SMD_CBO:
   cdef CSMD_CBO *thisptr
@@ -659,6 +767,12 @@ cdef class SMD_CBO:
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
 
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
+
 cdef class SMD_PSO:
   cdef CSMD_PSO *thisptr
   def __cinit__(
@@ -688,6 +802,12 @@ cdef class SMD_PSO:
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
 
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
+
 cdef class Full_Noise:
   cdef CFull_Noise *thisptr
   def __cinit__(
@@ -712,6 +832,12 @@ cdef class Full_Noise:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
 
 cdef class GCN_CBO:
   cdef CGCN_CBO *thisptr
@@ -743,6 +869,12 @@ cdef class GCN_CBO:
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
 
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
+
 cdef class GCN_SBS:
   cdef CGCN_SBS *thisptr
   def __cinit__(
@@ -767,6 +899,12 @@ cdef class GCN_SBS:
   
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
 
 cdef class GCN_Langevin:
   cdef CGCN_Langevin *thisptr
@@ -793,6 +931,12 @@ cdef class GCN_Langevin:
 
   def set_stop_criterion(self, stop_criterion):
     self.thisptr.set_stop_criterion(stop_criterion)
+
+  def set_seed(self, seed):
+    self.thisptr.set_seed(seed)
+
+  def get_seed(self):
+    return self.thisptr.get_seed()
 
 cdef class GCN_PSO:
   cdef CGCN_PSO *thisptr
