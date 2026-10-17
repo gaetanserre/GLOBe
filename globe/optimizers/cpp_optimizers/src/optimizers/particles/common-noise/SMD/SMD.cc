@@ -89,7 +89,6 @@ void SMD::update_particles(Eigen::MatrixXd *particles, function<double(dyn_vecto
   for (int j = 0; j < particles->rows(); j++)
   {
     all_evals->push_back(evals[j]);
-    samples->push_back((*particles).row(j));
 
     common_dynamic common_dynamic;
     if (this->noise_type == NoiseType::M1)
