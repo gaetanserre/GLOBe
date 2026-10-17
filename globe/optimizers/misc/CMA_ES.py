@@ -17,7 +17,8 @@ class CMA_ES(CPP_Optimizer):
     n_eval : int
         The maximum number of function evaluations.
     m_0 : ndarray
-        The initial mean of the search distribution.
+        The initial mean of the search distribution. If None, a new one is drawn
+        uniformly in the bounds at each run.
     sigma0 : float
         The initial standard deviation of the search distribution.
     verbose : bool
