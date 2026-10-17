@@ -14,11 +14,13 @@ public:
       vec_bounds bounds,
       int n_eval,
       std::vector<double> m0,
-      double sigma) : Optimizer(bounds, "CMA-ES")
+      double sigma,
+      int lambda = -1) : Optimizer(bounds, "CMA-ES")
   {
     this->n_eval = n_eval;
     this->m0 = m0;
     this->sigma = sigma;
+    this->lambda = lambda;
 
     this->transform_bounds(bounds);
   }
@@ -39,4 +41,5 @@ private:
   double *ubounds;
   std::vector<double> m0;
   double sigma;
+  int lambda;
 };
